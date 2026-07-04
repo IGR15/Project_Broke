@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -m 3 http://127.0.0.1:8000/mcp)",
+      "Bash(curl -s -m 3 http://127.0.0.1:8000/)",
+      "Bash(curl -s -m 3 -X POST http://127.0.0.1:8000/mcp -H \"Content-Type: application/json\" -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{\"protocolVersion\":\"2024-11-05\",\"capabilities\":{},\"clientInfo\":{\"name\":\"test\",\"version\":\"1\"}}}')",
+      "Bash(echo \"exit:$?\")",
+      "Bash(curl -v -m 3 http://127.0.0.1:8000/mcp)",
+      "Bash(grep -a -o -E \"[A-Za-z_][A-Za-z0-9_]{2,40}\" \"./Content/Blueprints/SandboxCharacter_CMC_ABP.uasset\")",
+      "Bash(grep -a -o -E \"[A-Za-z_][A-Za-z0-9_]{2,60}\" \"./Content/Blueprints/SandboxCharacter_CMC_ABP.uasset\")",
+      "Bash(grep -i -E \"statemachine|anim_graph|animgraph|^Grounded|^InAir$|^Jumped$|^Falling|^Locomotion|CharacterMovement|ShouldTransition|CanJump|IsJumping\")",
+      "Bash(curl *)",
+      "PowerShell(Test-NetConnection *)",
+      "Bash(claude mcp *)",
+      "Bash(netstat -ano)",
+      "Bash(tasklist)",
+      "mcp__unreal-mcp__list_toolsets",
+      "mcp__unreal-mcp__describe_toolset",
+      "mcp__unreal-mcp__call_tool",
+      "Bash(python3 *)"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "unreal-mcp"
+  ]
+}
