@@ -20,6 +20,8 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	virtual void Tick(float DeltaTime) override;
+
 	UFUNCTION()
 	void OnOverlap(
 		UPrimitiveComponent* OverlappedComponent,
@@ -48,11 +50,17 @@ public:
 	UPROPERTY(EditAnywhere, Category="Falling Platform")
 	float DestroyDelay = 5.f;
 
+	// Downward acceleration applied once the platform starts falling, in cm/s^2
+	UPROPERTY(EditAnywhere, Category="Falling Platform")
+	float FallAcceleration = 980.f;
+
 private:
 	void StartFalling();
 	void DestroySelf();
 
 	bool bHasTriggered = false;
+	bool bIsFalling = false;
+	float FallSpeed = 0.f;
 
 	FTimerHandle FallTimerHandle;
 	FTimerHandle DestroyTimerHandle;

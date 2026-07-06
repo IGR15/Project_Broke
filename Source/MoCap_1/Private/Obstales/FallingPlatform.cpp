@@ -12,7 +12,8 @@
 
 AFallingPlatform::AFallingPlatform()
 {
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bStartWithTickEnabled = false;
 
 	Root = CreateDefaultSubobject<USceneComponent>("Root");
 	RootComponent = Root;
@@ -80,7 +81,21 @@ void AFallingPlatform::OnOverlap(
 
 void AFallingPlatform::StartFalling()
 {
-	PlatformMesh->SetSimulatePhysics(true);
+	bIsFalling = true;
+	SetActorTickEnabled(true);
+}
+
+void AFallingPlatform::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if (!bIsFalling)
+	{
+		return;
+	}
+
+	FallSpeed += FallAcceleration * DeltaTime;
+	AddActorWorldOffset(FVector(0.f, 0.f, -FallSpeed * DeltaTime), true);
 }
 
 void AFallingPlatform::DestroySelf()
