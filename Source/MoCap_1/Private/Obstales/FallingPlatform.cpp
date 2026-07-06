@@ -83,6 +83,12 @@ void AFallingPlatform::StartFalling()
 {
 	bIsFalling = true;
 	SetActorTickEnabled(true);
+
+	// Stop supporting the player so the CharacterMovementComponent loses its
+	// floor and transitions to a real Falling state, instead of riding the
+	// platform down as a MovementBase (which suppresses the fall animation
+	// and desyncs the camera from the mesh).
+	PlatformMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
 }
 
 void AFallingPlatform::Tick(float DeltaTime)
