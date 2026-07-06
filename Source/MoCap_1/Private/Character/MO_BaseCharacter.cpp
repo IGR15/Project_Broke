@@ -20,7 +20,6 @@ void AMO_BaseCharacter::BeginPlay()
 	
 }
 
-// Called every frame
 void AMO_BaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
