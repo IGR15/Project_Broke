@@ -9,6 +9,8 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/RotatingMovementComponent.h"
 #include "NiagaraFunctionLibrary.h"
+#include "NiagaraSystem.h"
+#include "UObject/ConstructorHelpers.h"
 
 AMysteryBox::AMysteryBox()
 {
@@ -29,6 +31,13 @@ AMysteryBox::AMysteryBox()
 	TriggerCollision->SetGenerateOverlapEvents(true);
 
 	RotatingMovement = CreateDefaultSubobject<URotatingMovementComponent>("RotatingMovement");
+
+	static ConstructorHelpers::FObjectFinder<UNiagaraSystem> DefaultPopEffect(
+		TEXT("/Game/Effects/NS_MysteryBoxPop.NS_MysteryBoxPop"));
+	if (DefaultPopEffect.Succeeded())
+	{
+		PopEffect = DefaultPopEffect.Object;
+	}
 }
 
 void AMysteryBox::BeginPlay()
