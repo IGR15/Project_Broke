@@ -9,6 +9,7 @@
 class UStaticMeshComponent;
 class UBoxComponent;
 class URotatingMovementComponent;
+class UNiagaraSystem;
 
 UCLASS()
 class MOCAP_1_API AMysteryBox : public AActor
@@ -66,6 +67,10 @@ public:
 
 	UPROPERTY(EditAnywhere, Category="MysteryBox|Reward")
 	int32 MaxItemNumber = 12;
+
+	// Played at the box's location when it is collected
+	UPROPERTY(EditAnywhere, Category="MysteryBox|Effects")
+	UNiagaraSystem* PopEffect;
 
 private:
 	FVector InitialLocation = FVector::ZeroVector;

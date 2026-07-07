@@ -8,6 +8,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/RotatingMovementComponent.h"
+#include "NiagaraFunctionLibrary.h"
 
 AMysteryBox::AMysteryBox()
 {
@@ -80,4 +81,15 @@ void AMysteryBox::OnOverlap(
 			FColor::Yellow,
 			FString::Printf(TEXT("Mystery Box: You got item #%d"), ItemNumber));
 	}
+
+	if (PopEffect)
+	{
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+			GetWorld(),
+			PopEffect,
+			GetActorLocation(),
+			GetActorRotation());
+	}
+
+	Destroy();
 }
