@@ -6,6 +6,7 @@
 #include "Components/SceneComponent.h"
 #include "Pickups/MysteryBox.h"
 #include "TimerManager.h"
+#include "Engine/World.h"
 
 AMysteryBoxSpawner::AMysteryBoxSpawner()
 {
