@@ -16,13 +16,6 @@
   <component name="ChangeListManager">
     <list default="true" id="39afaa26-1d8f-4281-bcde-dd54e12f16b0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MoCap_1.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MoCap_1.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mcp.json" beforeDir="false" afterPath="$PROJECT_DIR$/.mcp.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Data/E_ExperimentalStateMachineState.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Data/E_ExperimentalStateMachineState.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/SandboxCharacter_CMC.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/SandboxCharacter_CMC.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/SandboxCharacter_CMC_ABP.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/SandboxCharacter_CMC_ABP.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/SandboxCharacter_Mover_ABP.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/SandboxCharacter_Mover_ABP.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Characters/UEFN_Mannequin/Animations/ExperimentalStateMachineData/CHT_CMCCharacterAnimations.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Characters/UEFN_Mannequin/Animations/ExperimentalStateMachineData/CHT_CMCCharacterAnimations.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MoCap_1/Private/Obstales/FallingPlatform.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MoCap_1/Private/Obstales/FallingPlatform.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,61 +66,61 @@
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.00008025774389" />
-      <entry key="MS500" value="1.2183526574726364" />
-      <entry key="S2" value="2.4602753844105525" />
-      <entry key="S5" value="3.2365816049433436" />
-      <entry key="S10" value="3.587863983463474" />
-      <entry key="S30" value="3.855200317717983" />
-      <entry key="S60" value="3.926627851827254" />
-      <entry key="M2" value="3.963067358881898" />
-      <entry key="M5" value="3.9851673702704637" />
-      <entry key="M10" value="3.9954929778989867" />
-      <entry key="M15" value="4.104973792604171" />
-      <entry key="M30" value="8.17902270397491" />
-      <entry key="H1" value="30.09961452304256" />
-      <entry key="H2" value="69.70637649354121" />
-      <entry key="H4" value="108.59276225496802" />
-      <entry key="D1" value="158.43288654108497" />
-      <entry key="W1" value="169.14285494153708" />
+      <entry key="MS100" value="1.0000000000124938" />
+      <entry key="MS500" value="1.0065968819329982" />
+      <entry key="S2" value="1.2849933181733653" />
+      <entry key="S5" value="1.6052487085074731" />
+      <entry key="S10" value="1.778015786705086" />
+      <entry key="S30" value="2.0047298022581757" />
+      <entry key="S60" value="2.5421037696391457" />
+      <entry key="M2" value="3.506464242756534" />
+      <entry key="M5" value="4.71304360874726" />
+      <entry key="M10" value="5.297553766058663" />
+      <entry key="M15" value="5.612071330261889" />
+      <entry key="M30" value="9.673842923379475" />
+      <entry key="H1" value="31.157194405618196" />
+      <entry key="H2" value="70.60691513515344" />
+      <entry key="H4" value="109.7330544635951" />
+      <entry key="D1" value="160.22316016248877" />
+      <entry key="W1" value="171.1108508147705" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
       <entry key="S5" value="0.0" />
-      <entry key="S10" value="1.724174754230412E-285" />
-      <entry key="S30" value="2.8109728566061777E-95" />
-      <entry key="S60" value="1.3544799055236797E-47" />
-      <entry key="M2" value="1.148238170443878E-23" />
-      <entry key="M5" value="2.9942476341185915E-9" />
-      <entry key="M10" value="2.062161679144115E-4" />
-      <entry key="M15" value="0.008691983667958387" />
-      <entry key="M30" value="0.38518306832302596" />
-      <entry key="H1" value="2.712872294841836" />
-      <entry key="H2" value="7.427508898152054" />
-      <entry key="H4" value="12.43121389858153" />
-      <entry key="D1" value="19.22932300117897" />
-      <entry key="W1" value="20.73702652820324" />
+      <entry key="S10" value="1.8486171610156327E-290" />
+      <entry key="S30" value="6.198385049313095E-97" />
+      <entry key="S60" value="2.0113308558718776E-48" />
+      <entry key="M2" value="4.4247369264153225E-24" />
+      <entry key="M5" value="2.044701450273471E-9" />
+      <entry key="M10" value="1.7040950194506434E-4" />
+      <entry key="M15" value="0.007654196927941938" />
+      <entry key="M30" value="0.36145776040460303" />
+      <entry key="H1" value="2.6279949894195402" />
+      <entry key="H2" value="7.310393793692032" />
+      <entry key="H4" value="12.332818351011717" />
+      <entry key="D1" value="19.20387160902469" />
+      <entry key="W1" value="20.733103309898098" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9461351442657058" />
-      <entry key="MS500" value="1.2047691007973063" />
-      <entry key="S2" value="2.452292527322726" />
-      <entry key="S5" value="3.2322034062370912" />
-      <entry key="S10" value="3.58540633334766" />
-      <entry key="S30" value="3.8543129949909583" />
-      <entry key="S60" value="3.926175095082977" />
-      <entry key="M2" value="3.962838660753951" />
-      <entry key="M5" value="3.9850753312794254" />
-      <entry key="M10" value="3.9956524503041617" />
-      <entry key="M15" value="4.113616352862975" />
-      <entry key="M30" value="8.563701794928322" />
-      <entry key="H1" value="32.81044335456983" />
-      <entry key="H2" value="77.13077303134348" />
-      <entry key="H4" value="121.02121231560886" />
-      <entry key="D1" value="177.66145913538642" />
-      <entry key="W1" value="189.87976481269547" />
+      <entry key="MS100" value="0.882702996302312" />
+      <entry key="MS500" value="0.9818615222376462" />
+      <entry key="S2" value="1.2777884095192262" />
+      <entry key="S5" value="1.6019180178518106" />
+      <entry key="S10" value="1.7762298075027771" />
+      <entry key="S30" value="2.0040819584521894" />
+      <entry key="S60" value="2.5417178311515265" />
+      <entry key="M2" value="3.5062155825257006" />
+      <entry key="M5" value="4.712916257421429" />
+      <entry key="M10" value="5.29765324987617" />
+      <entry key="M15" value="5.619660461731144" />
+      <entry key="M30" value="10.034816971953253" />
+      <entry key="H1" value="33.78320447551666" />
+      <entry key="H2" value="77.91424294818127" />
+      <entry key="H4" value="122.06312950529515" />
+      <entry key="D1" value="179.42628213322476" />
+      <entry key="W1" value="191.84383745760385" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -335,7 +328,8 @@
       <workItem from="1783154923450" duration="6901000" />
       <workItem from="1783176398211" duration="3006000" />
       <workItem from="1783247526271" duration="3822000" />
-      <workItem from="1783330032390" duration="7031000" />
+      <workItem from="1783330032390" duration="9888000" />
+      <workItem from="1783419057646" duration="594000" />
     </task>
     <task id="LOCAL-00001" summary="falling platforms">
       <option name="closed" value="true" />
@@ -353,7 +347,23 @@
       <option name="project" value="LOCAL" />
       <updated>1783331830231</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="bounce pad fix">
+      <option name="closed" value="true" />
+      <created>1783341276841</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1783341276841</updated>
+    </task>
+    <task id="LOCAL-00004" summary=".">
+      <option name="closed" value="true" />
+      <created>1783341303263</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1783341303263</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -365,7 +375,9 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="falling platforms" />
     <MESSAGE value="fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix" />
+    <MESSAGE value="bounce pad fix" />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
