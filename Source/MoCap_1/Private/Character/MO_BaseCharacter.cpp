@@ -4,6 +4,7 @@
 #include "Character/MO_BaseCharacter.h"
 
 #include "Components/LaunchComponent.h"
+#include "Components/SpeedBoostComponent.h"
 
 
 // Sets default values
@@ -11,6 +12,7 @@ AMO_BaseCharacter::AMO_BaseCharacter()
 {
 
 	LaunchComponent= CreateDefaultSubobject<ULaunchComponent>("LaunchComponent");
+	SpeedBoostComponent = CreateDefaultSubobject<USpeedBoostComponent>("SpeedBoostComponent");
 	PrimaryActorTick.bCanEverTick = true;
 }
 

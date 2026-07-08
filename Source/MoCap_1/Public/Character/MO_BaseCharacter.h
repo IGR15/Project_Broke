@@ -7,6 +7,7 @@
 #include "MO_BaseCharacter.generated.h"
 
 class ULaunchComponent;
+class USpeedBoostComponent;
 
 UCLASS()
 class MOCAP_1_API AMO_BaseCharacter : public ACharacter
@@ -17,9 +18,12 @@ public:
 	AMO_BaseCharacter();
 	UPROPERTY(BlueprintReadOnly, Category="Launch")
 	bool bIsObstacleLaunch = false;
-	
+
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<ULaunchComponent> LaunchComponent;
+
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<USpeedBoostComponent> SpeedBoostComponent;
 
 protected:
 	// Called when the game starts or when spawned

@@ -17,7 +17,9 @@
     <list default="true" id="39afaa26-1d8f-4281-bcde-dd54e12f16b0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MoCap_1.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MoCap_1.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Levels/DefaultLevel.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/DefaultLevel.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MoCap_1/Private/Pickups/MysteryBoxSpawner.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MoCap_1/Private/Pickups/MysteryBoxSpawner.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MoCap_1/MoCap_1.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MoCap_1/MoCap_1.Build.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MoCap_1/Private/Character/MO_BaseCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MoCap_1/Private/Character/MO_BaseCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MoCap_1/Public/Character/MO_BaseCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MoCap_1/Public/Character/MO_BaseCharacter.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +48,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="cidr-memory-view://5" root0="FORCE_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://3" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files/Epic Games/UE_5.8/Engine/Source/Runtime/CoreUObject/Private/StructUtils/InstancedStruct.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files/Epic Games/UE_5.8/Engine/Source/Runtime/Engine/Private/Character.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files/Epic Games/UE_5.8/Engine/Source/Runtime/Engine/Private/KismetSystemLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -68,61 +70,61 @@
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0000000000256901" />
-      <entry key="MS500" value="1.0076199645431847" />
-      <entry key="S2" value="1.2954528867335913" />
-      <entry key="S5" value="1.614038065860039" />
-      <entry key="S10" value="1.7836058236685544" />
-      <entry key="S30" value="1.9268741838244414" />
-      <entry key="S60" value="2.08308671631427" />
-      <entry key="M2" value="2.632817217880419" />
-      <entry key="M5" value="4.139785180255091" />
-      <entry key="M10" value="6.265898253684088" />
-      <entry key="M15" value="8.142552852026505" />
-      <entry key="M30" value="13.463940723052447" />
-      <entry key="H1" value="31.643167606582246" />
-      <entry key="H2" value="69.60417936939838" />
-      <entry key="H4" value="111.66860167887307" />
-      <entry key="D1" value="170.46874341920292" />
-      <entry key="W1" value="183.68870802712422" />
+      <entry key="MS100" value="1.9169778348737325E-42" />
+      <entry key="MS500" value="6.791291824694317E-9" />
+      <entry key="S2" value="0.015107653149598528" />
+      <entry key="S5" value="0.2830905210521461" />
+      <entry key="S10" value="0.7545468313906148" />
+      <entry key="S30" value="1.7687849357467158" />
+      <entry key="S60" value="2.8384318647961653" />
+      <entry key="M2" value="3.996191573336068" />
+      <entry key="M5" value="5.618892513515558" />
+      <entry key="M10" value="7.82455892400671" />
+      <entry key="M15" value="9.86666734672008" />
+      <entry key="M30" value="15.506103797351432" />
+      <entry key="H1" value="32.743816350068265" />
+      <entry key="H2" value="70.05047306589772" />
+      <entry key="H4" value="113.13585941290586" />
+      <entry key="D1" value="175.29763422533154" />
+      <entry key="W1" value="189.50794371277271" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="0.0" />
-      <entry key="S10" value="0.0" />
-      <entry key="S30" value="9.36740238378501E-118" />
-      <entry key="S60" value="7.819047086309039E-59" />
-      <entry key="M2" value="2.758815204851203E-29" />
-      <entry key="M5" value="1.6926375356272478E-11" />
-      <entry key="M10" value="1.5504609707897047E-5" />
-      <entry key="M15" value="0.0015483803543973218" />
-      <entry key="M30" value="0.16257230516718857" />
-      <entry key="H1" value="1.7624590618912903" />
-      <entry key="H2" value="5.986707290629061" />
-      <entry key="H4" value="11.16055934608294" />
-      <entry key="D1" value="18.886844215334158" />
-      <entry key="W1" value="20.68385768318563" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0000000000000127" />
+      <entry key="S5" value="1.0000031885261584" />
+      <entry key="S10" value="1.0023255275211358" />
+      <entry key="S30" value="1.205813235031535" />
+      <entry key="S60" value="1.6397776858293867" />
+      <entry key="M2" value="2.1303745983071556" />
+      <entry key="M5" value="2.5915971100719517" />
+      <entry key="M10" value="2.784106051324645" />
+      <entry key="M15" value="2.8541334539760337" />
+      <entry key="M30" value="3.0421599373405077" />
+      <entry key="H1" value="4.4567715573050055" />
+      <entry key="H2" value="8.493894877766124" />
+      <entry key="H4" value="13.700266030957529" />
+      <entry key="D1" value="21.75591828693046" />
+      <entry key="W1" value="23.663336233972007" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="3.452669978589258E-4" />
-      <entry key="MS500" value="0.20989261956101493" />
-      <entry key="S2" value="0.9587595767986138" />
-      <entry key="S5" value="1.4599848712037131" />
-      <entry key="S10" value="1.7027089433670999" />
-      <entry key="S30" value="1.8989714150082289" />
-      <entry key="S60" value="2.069003849866407" />
-      <entry key="M2" value="2.6257237210376507" />
-      <entry key="M5" value="4.136912243857289" />
-      <entry key="M10" value="6.264443623161061" />
-      <entry key="M15" value="8.14309422495257" />
-      <entry key="M30" value="13.625780404895934" />
-      <entry key="H1" value="33.404030232997705" />
-      <entry key="H2" value="75.58824066273178" />
-      <entry key="H4" value="122.82661015521067" />
-      <entry key="D1" value="189.35483887454697" />
-      <entry key="W1" value="204.37244767506618" />
+      <entry key="MS100" value="3.054316395666983E-16" />
+      <entry key="MS500" value="7.888314055993653E-4" />
+      <entry key="S2" value="0.17806918754315493" />
+      <entry key="S5" value="0.7308536687176973" />
+      <entry key="S10" value="1.3968146399930168" />
+      <entry key="S30" value="2.8050748130111907" />
+      <entry key="S60" value="4.368445601085928" />
+      <entry key="M2" value="6.058824427493268" />
+      <entry key="M5" value="8.178329005364844" />
+      <entry key="M10" value="10.591267051226023" />
+      <entry key="M15" value="12.708813961022846" />
+      <entry key="M30" value="18.541883487915303" />
+      <entry key="H1" value="37.19627651911287" />
+      <entry key="H2" value="78.54044470143924" />
+      <entry key="H4" value="126.8329322929168" />
+      <entry key="D1" value="197.05268438521517" />
+      <entry key="W1" value="213.17114423560258" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -331,7 +333,8 @@
       <workItem from="1783176398211" duration="3006000" />
       <workItem from="1783247526271" duration="3822000" />
       <workItem from="1783330032390" duration="9888000" />
-      <workItem from="1783419057646" duration="3617000" />
+      <workItem from="1783419057646" duration="3731000" />
+      <workItem from="1783533629888" duration="4477000" />
     </task>
     <task id="LOCAL-00001" summary="falling platforms">
       <option name="closed" value="true" />
@@ -397,7 +400,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783454104424</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="spwaner fx">
+      <option name="closed" value="true" />
+      <created>1783455120990</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1783455120990</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -415,7 +426,8 @@
     <MESSAGE value="stuff" />
     <MESSAGE value="effect" />
     <MESSAGE value="box spawner" />
-    <option name="LAST_COMMIT_MESSAGE" value="box spawner" />
+    <MESSAGE value="spwaner fx" />
+    <option name="LAST_COMMIT_MESSAGE" value="spwaner fx" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
