@@ -28,6 +28,14 @@ public:
 		return bBoosted;
 	}
 
+	// Multiplier to apply on top of any Blueprint-computed max speed (e.g. Gait-based
+	// CalculateMaxSpeed). Returns 1.0 when not boosted.
+	UFUNCTION(BlueprintCallable)
+	float GetCurrentSpeedMultiplier() const
+	{
+		return bBoosted ? CurrentMultiplier : 1.f;
+	}
+
 private:
 	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
 	bool bBoosted = false;
@@ -36,6 +44,8 @@ private:
 	class ACharacter* OwnerCharacter;
 
 	float BaseMaxWalkSpeed = 0.f;
+
+	float CurrentMultiplier = 1.f;
 
 	FTimerHandle BoostTimerHandle;
 

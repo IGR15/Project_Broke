@@ -3,8 +3,10 @@
 
 #include "Components/SpeedBoostComponent.h"
 
+#include "Engine/World.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "TimerManager.h"
 
 USpeedBoostComponent::USpeedBoostComponent()
 {
@@ -33,7 +35,11 @@ void USpeedBoostComponent::ApplySpeedBoost(float SpeedMultiplier, float Duration
 		BaseMaxWalkSpeed = Movement->MaxWalkSpeed;
 	}
 
+	// Kept for characters using a plain CharacterMovementComponent. Characters whose
+	// max speed is recomputed each tick from Blueprint (e.g. CalculateMaxSpeed) must
+	// read CurrentMultiplier via GetCurrentSpeedMultiplier() instead.
 	Movement->MaxWalkSpeed = BaseMaxWalkSpeed * SpeedMultiplier;
+	CurrentMultiplier = SpeedMultiplier;
 	bBoosted = true;
 
 	GetWorld()->GetTimerManager().SetTimer(

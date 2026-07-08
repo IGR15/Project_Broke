@@ -25,6 +25,11 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USpeedBoostComponent> SpeedBoostComponent;
 
+	// Multiplier from an active speed boost (1.0 when not boosted). Blueprint-side
+	// max-speed calculations (e.g. CalculateMaxSpeed) should multiply their result by this.
+	UFUNCTION(BlueprintCallable, Category="Speed")
+	float GetSpeedBoostMultiplier() const;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

@@ -37,3 +37,8 @@ void AMO_BaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
+float AMO_BaseCharacter::GetSpeedBoostMultiplier() const
+{
+	return SpeedBoostComponent ? SpeedBoostComponent->GetCurrentSpeedMultiplier() : 1.f;
+}
+

@@ -7,6 +7,7 @@
 #include "Components/SceneComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 
 ASpeedPad::ASpeedPad()
@@ -54,11 +55,11 @@ void ASpeedPad::OnOverlap(
 		return;
 	}
 
+
 	USpeedBoostComponent* SpeedBoostComp =
 		Character->FindComponentByClass<USpeedBoostComponent>();
 
-	if (SpeedBoostComp)
-	{
-		SpeedBoostComp->ApplySpeedBoost(SpeedMultiplier, BoostDuration);
-	}
+	
+
+	SpeedBoostComp->ApplySpeedBoost(SpeedMultiplier, BoostDuration);
 }
