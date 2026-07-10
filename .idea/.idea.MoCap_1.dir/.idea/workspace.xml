@@ -14,16 +14,7 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="39afaa26-1d8f-4281-bcde-dd54e12f16b0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MoCap_1.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MoCap_1.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/SandboxCharacter_CMC.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/SandboxCharacter_CMC.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Levels/DefaultLevel.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/DefaultLevel.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MoCap_1/Private/Character/MO_BaseCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MoCap_1/Private/Character/MO_BaseCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MoCap_1/Private/Components/SpeedBoostComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MoCap_1/Private/Components/SpeedBoostComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MoCap_1/Private/Obstales/SpeedPad.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MoCap_1/Private/Obstales/SpeedPad.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MoCap_1/Public/Character/MO_BaseCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MoCap_1/Public/Character/MO_BaseCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MoCap_1/Public/Components/SpeedBoostComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MoCap_1/Public/Components/SpeedBoostComponent.h" afterDir="false" />
-    </list>
+    <list default="true" id="39afaa26-1d8f-4281-bcde-dd54e12f16b0" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -73,61 +64,61 @@
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0000042326728147" />
-      <entry key="MS500" value="1.0883196431763351" />
-      <entry key="S2" value="1.7919940729976562" />
-      <entry key="S5" value="2.3581692781897363" />
-      <entry key="S10" value="2.6434783205453143" />
-      <entry key="S30" value="2.87211995259001" />
-      <entry key="S60" value="2.9348508978123613" />
-      <entry key="M2" value="2.9671168837157014" />
-      <entry key="M5" value="2.9876136134039135" />
-      <entry key="M10" value="3.0891419604951627" />
-      <entry key="M15" value="3.519597116628216" />
-      <entry key="M30" value="6.571260484338714" />
-      <entry key="H1" value="18.717830091697603" />
-      <entry key="H2" value="51.534778434734314" />
-      <entry key="H4" value="97.17214636613768" />
-      <entry key="D1" value="173.01863089552955" />
-      <entry key="W1" value="191.6819446810044" />
+      <entry key="MS100" value="1.2074376382842122" />
+      <entry key="MS500" value="1.8908896612399198" />
+      <entry key="S2" value="2.557659996628955" />
+      <entry key="S5" value="2.8020278073493046" />
+      <entry key="S10" value="2.8970807043795666" />
+      <entry key="S30" value="2.964775649489585" />
+      <entry key="S60" value="2.982270227077228" />
+      <entry key="M2" value="2.9911063862763445" />
+      <entry key="M5" value="3.0037859290935867" />
+      <entry key="M10" value="3.1514467444503778" />
+      <entry key="M15" value="3.4739609293320184" />
+      <entry key="M30" value="5.41385237271703" />
+      <entry key="H1" value="14.345630335188096" />
+      <entry key="H2" value="43.12278405246853" />
+      <entry key="H4" value="88.74080318358314" />
+      <entry key="D1" value="172.44699084799672" />
+      <entry key="W1" value="194.11160639325954" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="3.400781755054098E-230" />
-      <entry key="S10" value="1.84840646935092E-115" />
-      <entry key="S30" value="6.863457402133646E-39" />
-      <entry key="S60" value="1.2371330816010534E-19" />
-      <entry key="M2" value="5.851560493993255E-10" />
-      <entry key="M5" value="3.882341878112509E-4" />
-      <entry key="M10" value="0.034076024284715185" />
-      <entry key="M15" value="0.15158272354297964" />
-      <entry key="M30" value="0.7010835186816353" />
-      <entry key="H1" value="2.1395095595762683" />
-      <entry key="H2" value="5.885099508100198" />
-      <entry key="H4" value="11.40387543140667" />
-      <entry key="D1" value="21.100755069626043" />
-      <entry key="W1" value="23.560196826850596" />
+      <entry key="MS500" value="1.6371150032972447E-123" />
+      <entry key="S2" value="2.0114988895301004E-31" />
+      <entry key="S5" value="5.265115696220088E-13" />
+      <entry key="S10" value="7.256111697197121E-7" />
+      <entry key="S30" value="0.008986032530902955" />
+      <entry key="S60" value="0.09479468619549809" />
+      <entry key="M2" value="0.30788745702853537" />
+      <entry key="M5" value="0.6242484363899325" />
+      <entry key="M10" value="0.7917836066805763" />
+      <entry key="M15" value="0.8751085614725626" />
+      <entry key="M30" value="1.1820657565356378" />
+      <entry key="H1" value="2.2583704767985044" />
+      <entry key="H2" value="5.562462666882797" />
+      <entry key="H4" value="11.052562045025855" />
+      <entry key="D1" value="21.66353688568889" />
+      <entry key="W1" value="24.489861365496164" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9460614089059013" />
-      <entry key="MS500" value="1.0752726813638978" />
-      <entry key="S2" value="1.7851844873469682" />
-      <entry key="S5" value="2.354423076213732" />
-      <entry key="S10" value="2.641356844167131" />
-      <entry key="S30" value="2.8713474775059664" />
-      <entry key="S60" value="2.934455768307495" />
-      <entry key="M2" value="2.966917037978902" />
-      <entry key="M5" value="2.987916536003093" />
-      <entry key="M10" value="3.122964703076769" />
-      <entry key="M15" value="3.67051630625586" />
-      <entry key="M30" value="7.270860170441372" />
-      <entry key="H1" value="20.855263197822964" />
-      <entry key="H2" value="57.41715630740348" />
-      <entry key="H4" value="108.57336218680358" />
-      <entry key="D1" value="194.11854370032157" />
-      <entry key="W1" value="215.2420063481131" />
+      <entry key="MS100" value="1.0601168991262275" />
+      <entry key="MS500" value="1.7757131709894922" />
+      <entry key="S2" value="2.5185858698714063" />
+      <entry key="S5" value="2.785333140541461" />
+      <entry key="S10" value="2.8885441005854946" />
+      <entry key="S30" value="2.9698805280403686" />
+      <entry key="S60" value="3.070229331743889" />
+      <entry key="M2" value="3.2893936361116953" />
+      <entry key="M5" value="3.620483346243341" />
+      <entry key="M10" value="3.938464509428038" />
+      <entry key="M15" value="4.3455568373597195" />
+      <entry key="M30" value="6.593523763047189" />
+      <entry key="H1" value="16.601781057930257" />
+      <entry key="H2" value="48.682637808027124" />
+      <entry key="H4" value="99.79077112934952" />
+      <entry key="D1" value="194.10966129402956" />
+      <entry key="W1" value="218.60132705555347" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -337,7 +328,7 @@
       <workItem from="1783247526271" duration="3822000" />
       <workItem from="1783330032390" duration="9888000" />
       <workItem from="1783419057646" duration="3731000" />
-      <workItem from="1783533629888" duration="6677000" />
+      <workItem from="1783533629888" duration="6936000" />
     </task>
     <task id="LOCAL-00001" summary="falling platforms">
       <option name="closed" value="true" />
@@ -419,7 +410,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783542003781</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="speed pad">
+      <option name="closed" value="true" />
+      <created>1783544599880</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1783544599880</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -439,7 +438,8 @@
     <MESSAGE value="box spawner" />
     <MESSAGE value="spwaner fx" />
     <MESSAGE value="speed trap" />
-    <option name="LAST_COMMIT_MESSAGE" value="speed trap" />
+    <MESSAGE value="speed pad" />
+    <option name="LAST_COMMIT_MESSAGE" value="speed pad" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

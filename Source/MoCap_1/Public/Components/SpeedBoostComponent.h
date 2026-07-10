@@ -6,6 +6,9 @@
 #include "Components/ActorComponent.h"
 #include "SpeedBoostComponent.generated.h"
 
+// Fired when a boost starts, is refreshed (bActive=true each time), or ends (bActive=false).
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnSpeedBoostChanged, bool, bActive, float, Duration);
+
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class MOCAP_1_API USpeedBoostComponent : public UActorComponent
@@ -35,6 +38,9 @@ public:
 	{
 		return bBoosted ? CurrentMultiplier : 1.f;
 	}
+
+	UPROPERTY(BlueprintAssignable, Category="Speed")
+	FOnSpeedBoostChanged OnSpeedBoostChanged;
 
 private:
 	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess="true"))

@@ -3,8 +3,10 @@
 
 #include "Character/MO_BaseCharacter.h"
 
+#include "Blueprint/UserWidget.h"
 #include "Components/LaunchComponent.h"
 #include "Components/SpeedBoostComponent.h"
+#include "GameFramework/PlayerController.h"
 
 
 // Sets default values
@@ -40,5 +42,35 @@ void AMO_BaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 float AMO_BaseCharacter::GetSpeedBoostMultiplier() const
 {
 	return SpeedBoostComponent ? SpeedBoostComponent->GetCurrentSpeedMultiplier() : 1.f;
+}
+
+void AMO_BaseCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	UE_LOG(LogTemp, Log, TEXT("MO_BaseCharacter::PossessedBy: %s possessed by %s (PlayerHUDClass=%s)"),
+		*GetName(), *GetNameSafe(NewController), *GetNameSafe(PlayerHUDClass));
+
+	if (PlayerHUDWidget || !PlayerHUDClass)
+	{
+		return;
+	}
+
+	APlayerController* PC = Cast<APlayerController>(NewController);
+
+	if (!PC || !PC->IsLocalController())
+	{
+		UE_LOG(LogTemp, Log, TEXT("MO_BaseCharacter::PossessedBy: skipping HUD creation (not a local player controller)"));
+		return;
+	}
+
+	PlayerHUDWidget = CreateWidget<UUserWidget>(PC, PlayerHUDClass);
+
+	UE_LOG(LogTemp, Log, TEXT("MO_BaseCharacter::PossessedBy: created HUD widget %s"), *GetNameSafe(PlayerHUDWidget));
+
+	if (PlayerHUDWidget)
+	{
+		PlayerHUDWidget->AddToViewport();
+	}
 }
 

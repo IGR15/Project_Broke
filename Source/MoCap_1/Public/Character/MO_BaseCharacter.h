@@ -8,6 +8,7 @@
 
 class ULaunchComponent;
 class USpeedBoostComponent;
+class UUserWidget;
 
 UCLASS()
 class MOCAP_1_API AMO_BaseCharacter : public ACharacter
@@ -30,9 +31,18 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Speed")
 	float GetSpeedBoostMultiplier() const;
 
+	virtual void PossessedBy(AController* NewController) override;
+
+	// HUD widget created for the local player on possession.
+	UPROPERTY(EditDefaultsOnly, Category="HUD")
+	TSubclassOf<UUserWidget> PlayerHUDClass;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(Transient, BlueprintReadOnly, Category="HUD")
+	TObjectPtr<UUserWidget> PlayerHUDWidget;
 
 public:
 	// Called every frame

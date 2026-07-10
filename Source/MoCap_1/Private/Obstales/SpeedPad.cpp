@@ -59,7 +59,10 @@ void ASpeedPad::OnOverlap(
 	USpeedBoostComponent* SpeedBoostComp =
 		Character->FindComponentByClass<USpeedBoostComponent>();
 
-	
+	if (!SpeedBoostComp)
+	{
+		return;
+	}
 
 	SpeedBoostComp->ApplySpeedBoost(SpeedMultiplier, BoostDuration);
 }

@@ -42,6 +42,8 @@ void USpeedBoostComponent::ApplySpeedBoost(float SpeedMultiplier, float Duration
 	CurrentMultiplier = SpeedMultiplier;
 	bBoosted = true;
 
+	OnSpeedBoostChanged.Broadcast(true, Duration);
+
 	GetWorld()->GetTimerManager().SetTimer(
 		BoostTimerHandle,
 		this,
@@ -61,4 +63,6 @@ void USpeedBoostComponent::RevertSpeedBoost()
 	}
 
 	bBoosted = false;
+
+	OnSpeedBoostChanged.Broadcast(false, 0.f);
 }
