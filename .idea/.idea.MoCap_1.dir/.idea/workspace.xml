@@ -14,9 +14,7 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="39afaa26-1d8f-4281-bcde-dd54e12f16b0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MoCap_1.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MoCap_1.dir/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="39afaa26-1d8f-4281-bcde-dd54e12f16b0" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -332,7 +330,7 @@
       <workItem from="1783419057646" duration="3731000" />
       <workItem from="1783533629888" duration="6936000" />
       <workItem from="1783695270733" duration="4619000" />
-      <workItem from="1783883954178" duration="326000" />
+      <workItem from="1783883954178" duration="1808000" />
     </task>
     <task id="LOCAL-00001" summary="falling platforms">
       <option name="closed" value="true" />
@@ -438,7 +436,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783715780862</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="GAS">
+      <option name="closed" value="true" />
+      <created>1783887962194</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1783887962194</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -461,7 +467,8 @@
     <MESSAGE value="speed pad" />
     <MESSAGE value="speedeffect+UI" />
     <MESSAGE value="x" />
-    <option name="LAST_COMMIT_MESSAGE" value="x" />
+    <MESSAGE value="GAS" />
+    <option name="LAST_COMMIT_MESSAGE" value="GAS" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

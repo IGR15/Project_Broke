@@ -13,6 +13,8 @@
 #include "GameFramework/RotatingMovementComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraSystem.h"
+#include "AbilitySystem/Abilities/MO_ItemAbility.h"
+#include "Engine/Engine.h"
 #include "UObject/ConstructorHelpers.h"
 
 AMysteryBox::AMysteryBox()
