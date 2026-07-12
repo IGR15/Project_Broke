@@ -14,6 +14,15 @@ void UMO_ItemAbility::ActivateAbility(
 	const FGameplayAbilityActivationInfo ActivationInfo,
 	const FGameplayEventData* TriggerEventData)
 {
+	// Blueprint children own the activation: Super dispatches to Event ActivateAbility,
+	// and the graph is responsible for calling End Ability.
+	if (bHasBlueprintActivate)
+	{
+		Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
+		return;
+	}
+
+	// No Blueprint implementation - fall back to the debug print.
 	const FGameplayTag ItemTag = GetItemAbilityTag();
 	const FString TagString = ItemTag.IsValid() ? ItemTag.ToString() : ItemTagName.ToString();
 

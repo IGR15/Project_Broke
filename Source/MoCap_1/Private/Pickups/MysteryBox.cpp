@@ -43,6 +43,13 @@ AMysteryBox::AMysteryBox()
 	{
 		PopEffect = DefaultPopEffect.Object;
 	}
+
+	static ConstructorHelpers::FObjectFinder<UMO_ItemInfo> DefaultItemInfo(
+		TEXT("/Game/Blueprints/GAS/DA_ItemInfo.DA_ItemInfo"));
+	if (DefaultItemInfo.Succeeded())
+	{
+		ItemInfo = DefaultItemInfo.Object;
+	}
 }
 
 void AMysteryBox::BeginPlay()
