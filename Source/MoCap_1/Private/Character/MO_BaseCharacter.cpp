@@ -3,10 +3,12 @@
 
 #include "Character/MO_BaseCharacter.h"
 
+#include "AbilitySystemComponent.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/LaunchComponent.h"
 #include "Components/SpeedBoostComponent.h"
 #include "GameFramework/PlayerController.h"
+#include "Player/MO_PlayerState.h"
 
 
 // Sets default values
@@ -48,6 +50,9 @@ void AMO_BaseCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
+	// Init ability actor info for the server
+	InitAbilityActorInfo();
+
 	UE_LOG(LogTemp, Log, TEXT("MO_BaseCharacter::PossessedBy: %s possessed by %s (PlayerHUDClass=%s)"),
 		*GetName(), *GetNameSafe(NewController), *GetNameSafe(PlayerHUDClass));
 
@@ -72,5 +77,33 @@ void AMO_BaseCharacter::PossessedBy(AController* NewController)
 	{
 		PlayerHUDWidget->AddToViewport();
 	}
+}
+
+void AMO_BaseCharacter::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+
+	// Init ability actor info for the client
+	InitAbilityActorInfo();
+}
+
+UAbilitySystemComponent* AMO_BaseCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
+void AMO_BaseCharacter::InitAbilityActorInfo()
+{
+	AMO_PlayerState* MO_PlayerState = GetPlayerState<AMO_PlayerState>();
+
+	if (!MO_PlayerState)
+	{
+		UE_LOG(LogTemp, Warning,
+			TEXT("MO_BaseCharacter::InitAbilityActorInfo: PlayerState is not AMO_PlayerState. Set 'Player State Class' to MO_PlayerState in your GameMode."));
+		return;
+	}
+
+	MO_PlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(MO_PlayerState, this);
+	AbilitySystemComponent = MO_PlayerState->GetAbilitySystemComponent();
 }
 

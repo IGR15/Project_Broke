@@ -4,14 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "AbilitySystemInterface.h"
 #include "MO_BaseCharacter.generated.h"
 
 class ULaunchComponent;
 class USpeedBoostComponent;
 class UUserWidget;
+class UAbilitySystemComponent;
 
 UCLASS()
-class MOCAP_1_API AMO_BaseCharacter : public ACharacter
+class MOCAP_1_API AMO_BaseCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -32,6 +34,9 @@ public:
 	float GetSpeedBoostMultiplier() const;
 
 	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
+
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 	// HUD widget created for the local player on possession.
 	UPROPERTY(EditDefaultsOnly, Category="HUD")
@@ -43,6 +48,13 @@ protected:
 
 	UPROPERTY(Transient, BlueprintReadOnly, Category="HUD")
 	TObjectPtr<UUserWidget> PlayerHUDWidget;
+
+	// Binds this character to the ASC living on MO_PlayerState.
+	// Called from PossessedBy (server) and OnRep_PlayerState (client).
+	virtual void InitAbilityActorInfo();
+
+	UPROPERTY()
+	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 public:
 	// Called every frame

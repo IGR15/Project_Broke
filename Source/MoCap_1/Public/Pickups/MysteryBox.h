@@ -10,6 +10,7 @@ class UStaticMeshComponent;
 class UBoxComponent;
 class URotatingMovementComponent;
 class UNiagaraSystem;
+class UMO_ItemInfo;
 
 UCLASS()
 class MOCAP_1_API AMysteryBox : public AActor
@@ -67,6 +68,11 @@ public:
 
 	UPROPERTY(EditAnywhere, Category="MysteryBox|Reward")
 	int32 MaxItemNumber = 12;
+
+	// Item -> ability table rolled on pickup. Falls back to the class defaults
+	// (all six items) when left unset.
+	UPROPERTY(EditAnywhere, Category="MysteryBox|Reward")
+	TObjectPtr<UMO_ItemInfo> ItemInfo;
 
 	// Played at the box's location when it is collected
 	UPROPERTY(EditAnywhere, Category="MysteryBox|Effects")
