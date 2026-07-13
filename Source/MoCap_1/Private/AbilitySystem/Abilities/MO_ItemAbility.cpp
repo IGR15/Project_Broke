@@ -3,6 +3,8 @@
 
 #include "AbilitySystem/Abilities/MO_ItemAbility.h"
 
+#include "AbilitySystemComponent.h"
+
 FGameplayTag UMO_ItemAbility::GetItemAbilityTag() const
 {
 	return FGameplayTag::RequestGameplayTag(ItemTagName, /*ErrorIfNotFound*/ false);
@@ -38,4 +40,29 @@ void UMO_ItemAbility::ActivateAbility(
 	}
 
 	EndAbility(Handle, ActorInfo, ActivationInfo, /*bReplicateEndAbility*/ true, /*bWasCancelled*/ false);
+}
+
+void UMO_ItemAbility::EndAbility(
+	const FGameplayAbilitySpecHandle Handle,
+	const FGameplayAbilityActorInfo* ActorInfo,
+	const FGameplayAbilityActivationInfo ActivationInfo,
+	const bool bReplicateEndAbility,
+	const bool bWasCancelled)
+{
+	// Flag BEFORE Super: Super::EndAbility calls NotifyAbilityEnded, which
+	// clears the spec when RemoveAfterActivation is set and no instance is
+	// active. Setting the flag at grant time instead would block activation
+	// (TryActivateAbility rejects flagged specs).
+	if (IsEndAbilityValid(Handle, ActorInfo) && ActorInfo->IsNetAuthority())
+	{
+		if (UAbilitySystemComponent* ASC = ActorInfo->AbilitySystemComponent.Get())
+		{
+			if (FGameplayAbilitySpec* Spec = ASC->FindAbilitySpecFromHandle(Handle))
+			{
+				Spec->RemoveAfterActivation = true;
+			}
+		}
+	}
+
+	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
 }

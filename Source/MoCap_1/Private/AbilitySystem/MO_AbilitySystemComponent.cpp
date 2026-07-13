@@ -29,16 +29,15 @@ void UMO_AbilitySystemComponent::AddItemAbility(const TSubclassOf<UMO_GameplayAb
 	if (FGameplayAbilitySpec* ExistingSpec = FindAbilitySpecFromClass(AbilityClass))
 	{
 		ExistingSpec->GetDynamicSpecSourceTags().AddTag(SlotTag);
-		ExistingSpec->RemoveAfterActivation = true;
 		MarkAbilitySpecDirty(*ExistingSpec);
 		return;
 	}
 
+	// One-shot consumption happens in UMO_ItemAbility::EndAbility, NOT via
+	// RemoveAfterActivation here: TryActivateAbility refuses specs that
+	// already carry that flag.
 	FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, AbilityLevel);
 	AbilitySpec.GetDynamicSpecSourceTags().AddTag(SlotTag);
-	// One-shot item: the engine clears the spec once the ability ends, so it
-	// cannot be re-activated; the next box pickup grants it fresh.
-	AbilitySpec.RemoveAfterActivation = true;
 	GiveAbility(AbilitySpec);
 }
 

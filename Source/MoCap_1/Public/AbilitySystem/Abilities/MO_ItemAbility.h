@@ -25,6 +25,15 @@ protected:
 		const FGameplayAbilityActivationInfo ActivationInfo,
 		const FGameplayEventData* TriggerEventData) override;
 
+	// Items are one-shot: flags the spec for removal so the ASC clears it the
+	// moment the ability finishes ending (NotifyAbilityEnded).
+	virtual void EndAbility(
+		const FGameplayAbilitySpecHandle Handle,
+		const FGameplayAbilityActorInfo* ActorInfo,
+		const FGameplayAbilityActivationInfo ActivationInfo,
+		bool bReplicateEndAbility,
+		bool bWasCancelled) override;
+
 	// Full tag name, e.g. Abilities.Item.Bazooka. Set in each item ability's constructor
 	// and resolved at runtime, because native tags register after CDO construction.
 	FName ItemTagName;
