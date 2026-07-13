@@ -19,6 +19,14 @@ public:
 	static void InitializeNativeGameplayTags();
 
 	/*
+	 * Input
+	 */
+
+	// The single "use item" slot; whichever item ability holds this tag in its
+	// spec's DynamicAbilityTags is the one LMB activates.
+	FGameplayTag InputTag_UseItem;
+
+	/*
 	 * Item Abilities (granted by the Mystery Box)
 	 */
 	FGameplayTag Abilities_Item_Bazooka;

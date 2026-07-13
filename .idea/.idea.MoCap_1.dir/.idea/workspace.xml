@@ -16,10 +16,6 @@
   <component name="ChangeListManager">
     <list default="true" id="39afaa26-1d8f-4281-bcde-dd54e12f16b0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MoCap_1.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MoCap_1.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GM_Sandbox.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/GM_Sandbox.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Levels/DefaultLevel.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/DefaultLevel.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MoCap_1/Private/AbilitySystem/Abilities/MO_ItemAbility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MoCap_1/Private/AbilitySystem/Abilities/MO_ItemAbility.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MoCap_1/Private/Pickups/MysteryBox.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MoCap_1/Private/Pickups/MysteryBox.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +44,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="cidr-memory-view://1" root0="FORCE_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://0" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files/Epic Games/UE_5.8/Engine/Source/Runtime/CoreUObject/Private/StructUtils/InstancedStruct.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files/Epic Games/UE_5.8/Engine/Source/Runtime/Engine/Private/Character.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files/Epic Games/UE_5.8/Engine/Source/Runtime/Engine/Private/KismetSystemLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -70,23 +66,23 @@
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0000003064397975" />
-      <entry key="S10" value="1.0009582084516866" />
-      <entry key="S30" value="1.205040971725142" />
-      <entry key="S60" value="1.784284198405309" />
-      <entry key="M2" value="2.5338945011800735" />
-      <entry key="M5" value="3.2939846142715785" />
-      <entry key="M10" value="3.6233474816837026" />
-      <entry key="M15" value="3.743374352007802" />
-      <entry key="M30" value="3.894262604588447" />
-      <entry key="H1" value="4.894524871686864" />
-      <entry key="H2" value="14.641025732920735" />
-      <entry key="H4" value="48.14651600884765" />
-      <entry key="D1" value="161.12850604796918" />
-      <entry key="W1" value="200.5074528162927" />
+      <entry key="MS100" value="1.0000241101474567" />
+      <entry key="MS500" value="1.1192449438184446" />
+      <entry key="S2" value="1.5876381642098853" />
+      <entry key="S5" value="1.80843293363937" />
+      <entry key="S10" value="1.8991289860967502" />
+      <entry key="S30" value="1.965177819378419" />
+      <entry key="S60" value="1.982434638758574" />
+      <entry key="M2" value="1.9911883786019702" />
+      <entry key="M5" value="2.019143647963031" />
+      <entry key="M10" value="2.2988970615825357" />
+      <entry key="M15" value="2.71098498061911" />
+      <entry key="M30" value="3.697982139686323" />
+      <entry key="H1" value="5.232215526210167" />
+      <entry key="H2" value="13.898188336346262" />
+      <entry key="H4" value="45.40317399229258" />
+      <entry key="D1" value="160.36720078621883" />
+      <entry key="W1" value="202.0129301945572" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -94,37 +90,37 @@
       <entry key="S2" value="0.0" />
       <entry key="S5" value="0.0" />
       <entry key="S10" value="0.0" />
-      <entry key="S30" value="6.949221526834533E-162" />
-      <entry key="S60" value="2.636137615306632E-81" />
-      <entry key="M2" value="5.134333077729409E-41" />
-      <entry key="M5" value="7.659391706246154E-17" />
-      <entry key="M10" value="8.770511336331393E-9" />
-      <entry key="M15" value="4.348513990801644E-6" />
-      <entry key="M30" value="0.0026350029506147124" />
-      <entry key="H1" value="0.10662644321177836" />
-      <entry key="H2" value="1.208653952375965" />
-      <entry key="H4" value="5.152053868488483" />
-      <entry key="D1" value="19.07577839471735" />
-      <entry key="W1" value="24.0488262470184" />
+      <entry key="S30" value="1.6652145057898037E-183" />
+      <entry key="S60" value="4.080703990477383E-92" />
+      <entry key="M2" value="2.0200752437662783E-46" />
+      <entry key="M5" value="5.274091779568847E-19" />
+      <entry key="M10" value="7.277825120835979E-10" />
+      <entry key="M15" value="8.27291710446321E-7" />
+      <entry key="M30" value="0.001149317465172674" />
+      <entry key="H1" value="0.0704197327793247" />
+      <entry key="H2" value="0.9822379320021508" />
+      <entry key="H4" value="4.644487066130538" />
+      <entry key="D1" value="18.748872785093877" />
+      <entry key="W1" value="23.989513507474147" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9592641193252643" />
-      <entry key="MS500" value="0.9917167307382933" />
-      <entry key="S2" value="0.9979227189990506" />
-      <entry key="S5" value="0.9991688708867066" />
-      <entry key="S10" value="1.0005347708855798" />
-      <entry key="S30" value="1.204349146681684" />
-      <entry key="S60" value="1.7831528202616023" />
-      <entry key="M2" value="2.532819277797451" />
-      <entry key="M5" value="3.2933475632098697" />
-      <entry key="M10" value="3.622984092160409" />
-      <entry key="M15" value="3.743125513794598" />
-      <entry key="M30" value="3.8967591687321823" />
-      <entry key="H1" value="5.000970230685068" />
-      <entry key="H2" value="15.849058680955343" />
-      <entry key="H4" value="53.29732209058196" />
-      <entry key="D1" value="180.2035118914706" />
-      <entry key="W1" value="224.5561394100858" />
+      <entry key="MS100" value="0.9395457174566176" />
+      <entry key="MS500" value="1.1056942415700233" />
+      <entry key="S2" value="1.5830999702409219" />
+      <entry key="S5" value="1.8064019190352336" />
+      <entry key="S10" value="1.898069193892336" />
+      <entry key="S30" value="1.9648138070663608" />
+      <entry key="S60" value="1.9822512285886198" />
+      <entry key="M2" value="1.9910963135975026" />
+      <entry key="M5" value="2.019102351085762" />
+      <entry key="M10" value="2.298848437772812" />
+      <entry key="M15" value="2.710925323684821" />
+      <entry key="M30" value="3.6990649141580128" />
+      <entry key="H1" value="5.302512584556834" />
+      <entry key="H2" value="14.879920055945593" />
+      <entry key="H4" value="50.04653543020103" />
+      <entry key="D1" value="179.11531413110893" />
+      <entry key="W1" value="226.0023043749021" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -336,7 +332,8 @@
       <workItem from="1783419057646" duration="3731000" />
       <workItem from="1783533629888" duration="6936000" />
       <workItem from="1783695270733" duration="4619000" />
-      <workItem from="1783883954178" duration="3189000" />
+      <workItem from="1783883954178" duration="3207000" />
+      <workItem from="1783955870923" duration="651000" />
     </task>
     <task id="LOCAL-00001" summary="falling platforms">
       <option name="closed" value="true" />
@@ -458,7 +455,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783888077557</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="GAS BP">
+      <option name="closed" value="true" />
+      <created>1783890231091</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1783890231091</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -482,7 +487,8 @@
     <MESSAGE value="x" />
     <MESSAGE value="GAS" />
     <MESSAGE value="fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix" />
+    <MESSAGE value="GAS BP" />
+    <option name="LAST_COMMIT_MESSAGE" value="GAS BP" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

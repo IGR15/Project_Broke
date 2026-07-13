@@ -12,6 +12,13 @@ void FMO_GameplayTags::InitializeNativeGameplayTags()
 	UGameplayTagsManager& Manager = UGameplayTagsManager::Get();
 
 	/*
+	 * Input
+	 */
+	GameplayTags.InputTag_UseItem = Manager.AddNativeGameplayTag(
+		FName("InputTag.UseItem"),
+		FString("Input slot for the currently held Mystery Box item (LMB)"));
+
+	/*
 	 * Item Abilities
 	 */
 	GameplayTags.Abilities_Item_Bazooka = Manager.AddNativeGameplayTag(
