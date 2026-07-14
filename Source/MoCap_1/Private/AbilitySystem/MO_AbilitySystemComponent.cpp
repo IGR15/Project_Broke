@@ -5,6 +5,20 @@
 
 #include "MO_GameplayTags.h"
 #include "AbilitySystem/Abilities/MO_GameplayAbility.h"
+#include "AbilitySystem/Abilities/MO_ItemAbility.h"
+
+namespace
+{
+	// Item tag of an ability class, read from its CDO (works pre-grant).
+	FGameplayTag GetItemTagFromAbilityClass(const TSubclassOf<UMO_GameplayAbility>& AbilityClass)
+	{
+		if (const UMO_ItemAbility* ItemCDO = Cast<UMO_ItemAbility>(AbilityClass.GetDefaultObject()))
+		{
+			return ItemCDO->GetItemAbilityTag();
+		}
+		return FGameplayTag();
+	}
+}
 
 void UMO_AbilitySystemComponent::AddItemAbility(const TSubclassOf<UMO_GameplayAbility>& AbilityClass, const int32 AbilityLevel)
 {
@@ -30,6 +44,7 @@ void UMO_AbilitySystemComponent::AddItemAbility(const TSubclassOf<UMO_GameplayAb
 	{
 		ExistingSpec->GetDynamicSpecSourceTags().AddTag(SlotTag);
 		MarkAbilitySpecDirty(*ExistingSpec);
+		ClientOnItemEquipped(GetItemTagFromAbilityClass(AbilityClass));
 		return;
 	}
 
@@ -39,6 +54,34 @@ void UMO_AbilitySystemComponent::AddItemAbility(const TSubclassOf<UMO_GameplayAb
 	FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, AbilityLevel);
 	AbilitySpec.GetDynamicSpecSourceTags().AddTag(SlotTag);
 	GiveAbility(AbilitySpec);
+	ClientOnItemEquipped(GetItemTagFromAbilityClass(AbilityClass));
+}
+
+FGameplayTag UMO_AbilitySystemComponent::GetEquippedItemTag() const
+{
+	const FGameplayTag& SlotTag = FMO_GameplayTags::Get().InputTag_UseItem;
+
+	for (const FGameplayAbilitySpec& Spec : GetActivatableAbilities())
+	{
+		if (Spec.GetDynamicSpecSourceTags().HasTagExact(SlotTag))
+		{
+			if (const UMO_ItemAbility* ItemAbility = Cast<UMO_ItemAbility>(Spec.Ability))
+			{
+				return ItemAbility->GetItemAbilityTag();
+			}
+		}
+	}
+	return FGameplayTag();
+}
+
+void UMO_AbilitySystemComponent::ClientOnItemEquipped_Implementation(const FGameplayTag& ItemTag)
+{
+	OnItemEquippedDelegate.Broadcast(ItemTag);
+}
+
+void UMO_AbilitySystemComponent::ClientOnItemConsumed_Implementation()
+{
+	OnItemConsumedDelegate.Broadcast();
 }
 
 void UMO_AbilitySystemComponent::AbilityInputTagPressed(const FGameplayTag& InputTag)

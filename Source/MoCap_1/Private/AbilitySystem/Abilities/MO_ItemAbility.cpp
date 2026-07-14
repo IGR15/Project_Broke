@@ -4,6 +4,7 @@
 #include "AbilitySystem/Abilities/MO_ItemAbility.h"
 
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/MO_AbilitySystemComponent.h"
 
 FGameplayTag UMO_ItemAbility::GetItemAbilityTag() const
 {
@@ -60,6 +61,12 @@ void UMO_ItemAbility::EndAbility(
 			if (FGameplayAbilitySpec* Spec = ASC->FindAbilitySpecFromHandle(Handle))
 			{
 				Spec->RemoveAfterActivation = true;
+			}
+
+			// Tell the owning client's UI the slot is now empty.
+			if (UMO_AbilitySystemComponent* MOASC = Cast<UMO_AbilitySystemComponent>(ASC))
+			{
+				MOASC->ClientOnItemConsumed();
 			}
 		}
 	}

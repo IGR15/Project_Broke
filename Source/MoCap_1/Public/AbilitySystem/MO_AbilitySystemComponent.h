@@ -8,6 +8,9 @@
 
 class UMO_GameplayAbility;
 
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnItemSlotEquipped, const FGameplayTag& /*ItemTag*/);
+DECLARE_MULTICAST_DELEGATE(FOnItemSlotCleared);
+
 /**
  * Project AbilitySystemComponent. Lives on MO_PlayerState for players.
  *
@@ -30,4 +33,20 @@ public:
 	void AbilityInputTagPressed(const FGameplayTag& InputTag);
 	void AbilityInputTagReleased(const FGameplayTag& InputTag);
 	void AbilityInputTagHeld(const FGameplayTag& InputTag);
+
+	// UI: fired on the owning client when the item slot changes.
+	// The overlay widget controller binds to these.
+	FOnItemSlotEquipped OnItemEquippedDelegate;
+	FOnItemSlotCleared OnItemConsumedDelegate;
+
+	// Item tag of the ability currently holding the UseItem slot
+	// (invalid tag when the slot is empty).
+	FGameplayTag GetEquippedItemTag() const;
+
+	// Server -> owning client notifications (broadcast locally in standalone).
+	UFUNCTION(Client, Reliable)
+	void ClientOnItemEquipped(const FGameplayTag& ItemTag);
+
+	UFUNCTION(Client, Reliable)
+	void ClientOnItemConsumed();
 };

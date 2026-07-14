@@ -9,6 +9,7 @@
 #include "Components/SpeedBoostComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "Player/MO_PlayerState.h"
+#include "UI/HUD/MO_HUD.h"
 
 
 // Sets default values
@@ -105,5 +106,16 @@ void AMO_BaseCharacter::InitAbilityActorInfo()
 
 	MO_PlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(MO_PlayerState, this);
 	AbilitySystemComponent = MO_PlayerState->GetAbilitySystemComponent();
+
+	// Aura pattern: the overlay comes up once the ASC is wired, from both the
+	// server (PossessedBy) and client (OnRep_PlayerState) paths. GetHUD() is
+	// only valid on the local player's controller.
+	if (APlayerController* PC = Cast<APlayerController>(GetController()))
+	{
+		if (AMO_HUD* MO_HUD = Cast<AMO_HUD>(PC->GetHUD()))
+		{
+			MO_HUD->InitOverlay(PC, MO_PlayerState, AbilitySystemComponent, /*AttributeSet*/ nullptr);
+		}
+	}
 }
 

@@ -36,3 +36,22 @@ FMO_ItemAbilityInfo UMO_ItemInfo::GetRandomItem() const
 
 	return ItemAbilities[FMath::RandRange(0, ItemAbilities.Num() - 1)];
 }
+
+FMO_ItemAbilityInfo UMO_ItemInfo::FindItemInfoByTag(const FGameplayTag& ItemTag) const
+{
+	for (const FMO_ItemAbilityInfo& Info : ItemAbilities)
+	{
+		if (!Info.AbilityClass)
+		{
+			continue;
+		}
+		if (const UMO_ItemAbility* ItemCDO = Info.AbilityClass.GetDefaultObject())
+		{
+			if (ItemCDO->GetItemAbilityTag().MatchesTagExact(ItemTag))
+			{
+				return Info;
+			}
+		}
+	}
+	return FMO_ItemAbilityInfo();
+}
