@@ -63,10 +63,11 @@ void UMO_ItemAbility::EndAbility(
 				Spec->RemoveAfterActivation = true;
 			}
 
-			// Tell the owning client's UI the slot is now empty.
+			// Tell the owning client's UI the slot is now empty and promote
+			// the queued item into the main slot, if one is waiting.
 			if (UMO_AbilitySystemComponent* MOASC = Cast<UMO_AbilitySystemComponent>(ASC))
 			{
-				MOASC->ClientOnItemConsumed();
+				MOASC->NotifyItemConsumed();
 			}
 		}
 	}

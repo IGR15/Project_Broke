@@ -16,13 +16,19 @@ void UMO_OverlayWidgetController::BroadCastInitValues()
 		OnTotalLapsChangedDelegate.Broadcast(MOPS->GetTotalLaps());
 	}
 
-	// An item can already be slotted if the overlay is (re)created mid-game.
+	// Items can already be slotted if the overlay is (re)created mid-game.
 	if (UMO_AbilitySystemComponent* MOASC = GetMOASC())
 	{
 		const FGameplayTag EquippedTag = MOASC->GetEquippedItemTag();
 		if (EquippedTag.IsValid())
 		{
-			BroadcastItemForTag(EquippedTag);
+			BroadcastItemForTag(EquippedTag, OnItemEquippedDelegate);
+		}
+
+		const FGameplayTag QueuedTag = MOASC->GetQueuedItemTag();
+		if (QueuedTag.IsValid())
+		{
+			BroadcastItemForTag(QueuedTag, OnSecondaryItemEquippedDelegate);
 		}
 	}
 }
@@ -49,16 +55,24 @@ void UMO_OverlayWidgetController::BindCallbacks()
 	{
 		MOASC->OnItemEquippedDelegate.AddLambda([this](const FGameplayTag& ItemTag)
 		{
-			BroadcastItemForTag(ItemTag);
+			BroadcastItemForTag(ItemTag, OnItemEquippedDelegate);
 		});
 		MOASC->OnItemConsumedDelegate.AddLambda([this]()
 		{
 			OnItemClearedDelegate.Broadcast();
 		});
+		MOASC->OnSecondaryItemEquippedDelegate.AddLambda([this](const FGameplayTag& ItemTag)
+		{
+			BroadcastItemForTag(ItemTag, OnSecondaryItemEquippedDelegate);
+		});
+		MOASC->OnSecondaryItemClearedDelegate.AddLambda([this]()
+		{
+			OnSecondaryItemClearedDelegate.Broadcast();
+		});
 	}
 }
 
-void UMO_OverlayWidgetController::BroadcastItemForTag(const FGameplayTag& ItemTag)
+void UMO_OverlayWidgetController::BroadcastItemForTag(const FGameplayTag& ItemTag, FOnItemEquippedSignature& SlotDelegate)
 {
 	if (!ItemInfo)
 	{
@@ -75,5 +89,5 @@ void UMO_OverlayWidgetController::BroadcastItemForTag(const FGameplayTag& ItemTa
 		return;
 	}
 
-	OnItemEquippedDelegate.Broadcast(Info);
+	SlotDelegate.Broadcast(Info);
 }

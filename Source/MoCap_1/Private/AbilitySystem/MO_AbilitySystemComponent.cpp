@@ -27,6 +27,21 @@ void UMO_AbilitySystemComponent::AddItemAbility(const TSubclassOf<UMO_GameplayAb
 		return;
 	}
 
+	// Main slot occupied: queue the pickup instead (replacing any previous
+	// queued item) and let NotifyItemConsumed promote it later.
+	if (GetEquippedItemTag().IsValid())
+	{
+		QueuedItemAbilityClass = AbilityClass;
+		QueuedItemTag = GetItemTagFromAbilityClass(AbilityClass);
+		ClientOnSecondaryItemEquipped(QueuedItemTag);
+		return;
+	}
+
+	EquipItemAbility(AbilityClass, AbilityLevel);
+}
+
+void UMO_AbilitySystemComponent::EquipItemAbility(const TSubclassOf<UMO_GameplayAbility>& AbilityClass, const int32 AbilityLevel)
+{
 	const FGameplayTag& SlotTag = FMO_GameplayTags::Get().InputTag_UseItem;
 
 	// Single slot: whatever ability currently holds the slot tag loses it.
@@ -40,12 +55,18 @@ void UMO_AbilitySystemComponent::AddItemAbility(const TSubclassOf<UMO_GameplayAb
 		}
 	}
 
-	if (FGameplayAbilitySpec* ExistingSpec = FindAbilitySpecFromClass(AbilityClass))
+	// Reuse an already-granted spec, but never one flagged for removal: when a
+	// queued item of the same class is promoted during EndAbility, the ending
+	// spec is still in the list with RemoveAfterActivation set.
+	for (FGameplayAbilitySpec& Spec : GetActivatableAbilities())
 	{
-		ExistingSpec->GetDynamicSpecSourceTags().AddTag(SlotTag);
-		MarkAbilitySpecDirty(*ExistingSpec);
-		ClientOnItemEquipped(GetItemTagFromAbilityClass(AbilityClass));
-		return;
+		if (Spec.Ability && Spec.Ability->GetClass() == AbilityClass && !Spec.RemoveAfterActivation)
+		{
+			Spec.GetDynamicSpecSourceTags().AddTag(SlotTag);
+			MarkAbilitySpecDirty(Spec);
+			ClientOnItemEquipped(GetItemTagFromAbilityClass(AbilityClass));
+			return;
+		}
 	}
 
 	// One-shot consumption happens in UMO_ItemAbility::EndAbility, NOT via
@@ -55,6 +76,25 @@ void UMO_AbilitySystemComponent::AddItemAbility(const TSubclassOf<UMO_GameplayAb
 	AbilitySpec.GetDynamicSpecSourceTags().AddTag(SlotTag);
 	GiveAbility(AbilitySpec);
 	ClientOnItemEquipped(GetItemTagFromAbilityClass(AbilityClass));
+}
+
+void UMO_AbilitySystemComponent::NotifyItemConsumed()
+{
+	if (!IsOwnerActorAuthoritative())
+	{
+		return;
+	}
+
+	ClientOnItemConsumed();
+
+	if (QueuedItemAbilityClass)
+	{
+		const TSubclassOf<UMO_GameplayAbility> Promoted = QueuedItemAbilityClass;
+		QueuedItemAbilityClass = nullptr;
+		QueuedItemTag = FGameplayTag();
+		ClientOnSecondaryItemCleared();
+		EquipItemAbility(Promoted, 1);
+	}
 }
 
 FGameplayTag UMO_AbilitySystemComponent::GetEquippedItemTag() const
@@ -82,6 +122,20 @@ void UMO_AbilitySystemComponent::ClientOnItemEquipped_Implementation(const FGame
 void UMO_AbilitySystemComponent::ClientOnItemConsumed_Implementation()
 {
 	OnItemConsumedDelegate.Broadcast();
+}
+
+void UMO_AbilitySystemComponent::ClientOnSecondaryItemEquipped_Implementation(const FGameplayTag& ItemTag)
+{
+	// Cache locally so GetQueuedItemTag works on the owning client too
+	// (e.g. when the overlay is rebuilt mid-game).
+	QueuedItemTag = ItemTag;
+	OnSecondaryItemEquippedDelegate.Broadcast(ItemTag);
+}
+
+void UMO_AbilitySystemComponent::ClientOnSecondaryItemCleared_Implementation()
+{
+	QueuedItemTag = FGameplayTag();
+	OnSecondaryItemClearedDelegate.Broadcast();
 }
 
 void UMO_AbilitySystemComponent::AbilityInputTagPressed(const FGameplayTag& InputTag)

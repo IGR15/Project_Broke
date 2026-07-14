@@ -40,7 +40,15 @@ public:
 	UPROPERTY(BlueprintAssignable, Category="Items")
 	FOnItemClearedSignature OnItemClearedDelegate;
 
+	// Queued (secondary) item slot.
+	UPROPERTY(BlueprintAssignable, Category="Items")
+	FOnItemEquippedSignature OnSecondaryItemEquippedDelegate;
+
+	UPROPERTY(BlueprintAssignable, Category="Items")
+	FOnItemClearedSignature OnSecondaryItemClearedDelegate;
+
 protected:
-	// Looks the tag up in ItemInfo and pushes the display info to widgets.
-	void BroadcastItemForTag(const FGameplayTag& ItemTag);
+	// Looks the tag up in ItemInfo and pushes the display info to widgets
+	// through the given slot delegate (main or secondary).
+	void BroadcastItemForTag(const FGameplayTag& ItemTag, FOnItemEquippedSignature& SlotDelegate);
 };
