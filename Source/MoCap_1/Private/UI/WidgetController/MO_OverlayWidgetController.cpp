@@ -14,6 +14,10 @@ void UMO_OverlayWidgetController::BroadCastInitValues()
 		OnScoreChangedDelegate.Broadcast(MOPS->GetPlayerScore());
 		OnCurrentLapChangedDelegate.Broadcast(MOPS->GetCurrentLap());
 		OnTotalLapsChangedDelegate.Broadcast(MOPS->GetTotalLaps());
+		OnRacePositionChangedDelegate.Broadcast(MOPS->GetRacePosition());
+		OnLastLapTimeChangedDelegate.Broadcast(MOPS->GetLastLapTime());
+		OnBestLapTimeChangedDelegate.Broadcast(MOPS->GetBestLapTime());
+		OnLapStartedDelegate.Broadcast(MOPS->GetLapStartServerTime());
 	}
 
 	// Items can already be slotted if the overlay is (re)created mid-game.
@@ -48,6 +52,22 @@ void UMO_OverlayWidgetController::BindCallbacks()
 		MOPS->OnTotalLapsChangedDelegate.AddLambda([this](const int32 NewValue)
 		{
 			OnTotalLapsChangedDelegate.Broadcast(NewValue);
+		});
+		MOPS->OnRacePositionChangedDelegate.AddLambda([this](const int32 NewValue)
+		{
+			OnRacePositionChangedDelegate.Broadcast(NewValue);
+		});
+		MOPS->OnLastLapTimeChangedDelegate.AddLambda([this](const float NewValue)
+		{
+			OnLastLapTimeChangedDelegate.Broadcast(NewValue);
+		});
+		MOPS->OnBestLapTimeChangedDelegate.AddLambda([this](const float NewValue)
+		{
+			OnBestLapTimeChangedDelegate.Broadcast(NewValue);
+		});
+		MOPS->OnLapStartedDelegate.AddLambda([this](const float NewValue)
+		{
+			OnLapStartedDelegate.Broadcast(NewValue);
 		});
 	}
 

@@ -8,6 +8,7 @@
 #include "MO_OverlayWidgetController.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPlayerStatChangedSignature, int32, NewValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPlayerFloatStatChangedSignature, float, NewValue);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnItemEquippedSignature, const FMO_ItemAbilityInfo&, ItemInfo);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnItemClearedSignature);
 
@@ -33,6 +34,22 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category="Stats")
 	FOnPlayerStatChangedSignature OnTotalLapsChangedDelegate;
+
+	// 1 = leading. 0 = positions not computed yet.
+	UPROPERTY(BlueprintAssignable, Category="Race")
+	FOnPlayerStatChangedSignature OnRacePositionChangedDelegate;
+
+	// Lap times in seconds; negative = no lap completed yet.
+	UPROPERTY(BlueprintAssignable, Category="Race")
+	FOnPlayerFloatStatChangedSignature OnLastLapTimeChangedDelegate;
+
+	UPROPERTY(BlueprintAssignable, Category="Race")
+	FOnPlayerFloatStatChangedSignature OnBestLapTimeChangedDelegate;
+
+	// Server time the current lap started (negative = not started). Widgets
+	// render the running timer locally: GetServerWorldTimeSeconds - NewValue.
+	UPROPERTY(BlueprintAssignable, Category="Race")
+	FOnPlayerFloatStatChangedSignature OnLapStartedDelegate;
 
 	UPROPERTY(BlueprintAssignable, Category="Items")
 	FOnItemEquippedSignature OnItemEquippedDelegate;
