@@ -5,6 +5,8 @@
 
 #include "Components/SplineComponent.h"
 #include "Engine/Engine.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Player/MO_PlayerState.h"
 #include "TimerManager.h"
 
@@ -103,6 +105,55 @@ void AMO_RaceGameState::RacerCrossedCheckpoint(AMO_PlayerState* RacerPS, const i
 	{
 		RacerPS->SetNextCheckpointIndex((CheckpointIndex + 1) % NumCheckpoints);
 	}
+}
+
+void AMO_RaceGameState::RespawnRacerAtLastCheckpoint(AMO_PlayerState* RacerPS)
+{
+	const int32 NumCheckpoints = CheckpointLocations.Num();
+	if (!HasAuthority() || !RacerPS || NumCheckpoints == 0)
+	{
+		return;
+	}
+
+	APawn* Pawn = RacerPS->GetPawn();
+	if (!Pawn)
+	{
+		return;
+	}
+
+	const int32 Next = RacerPS->GetNextCheckpointIndex() % NumCheckpoints;
+	const int32 LastCrossed = (Next - 1 + NumCheckpoints) % NumCheckpoints;
+	const FVector* LastLocation = CheckpointLocations.Find(LastCrossed);
+	if (!LastLocation)
+	{
+		return;
+	}
+
+	// Face the gate the racer still has to cross rather than trusting the
+	// checkpoint actor's rotation (gates are oriented across the track).
+	FRotator FacingRotation = Pawn->GetActorRotation();
+	if (const FVector* NextLocation = CheckpointLocations.Find(Next); NextLocation && Next != LastCrossed)
+	{
+		FacingRotation = (*NextLocation - *LastLocation).GetSafeNormal2D().Rotation();
+	}
+
+	Pawn->TeleportTo(*LastLocation + FVector(0.f, 0.f, RespawnHeightOffset), FacingRotation);
+	if (const ACharacter* Character = Cast<ACharacter>(Pawn))
+	{
+		Character->GetCharacterMovement()->StopMovementImmediately();
+	}
+	if (AController* Controller = Pawn->GetController())
+	{
+		Controller->SetControlRotation(FacingRotation);
+	}
+
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red,
+			FString::Printf(TEXT("respawned at checkpoint %d - %s"), LastCrossed, *RacerPS->GetPlayerName()));
+	}
+	UE_LOG(LogTemp, Log, TEXT("MO_RaceGameState: respawned at checkpoint %d - %s"),
+		LastCrossed, *RacerPS->GetPlayerName());
 }
 
 void AMO_RaceGameState::AddPlayerState(APlayerState* PlayerState)

@@ -35,6 +35,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Race")
 	void RacerCrossedCheckpoint(AMO_PlayerState* RacerPS, int32 CheckpointIndex);
 
+	// Teleports the racer's pawn back onto the last checkpoint they validly
+	// crossed, facing the next gate, with velocity zeroed. Called by
+	// AMO_KillVolume when a racer falls off the track.
+	UFUNCTION(BlueprintCallable, Category="Race")
+	void RespawnRacerAtLastCheckpoint(AMO_PlayerState* RacerPS);
+
 	virtual void AddPlayerState(APlayerState* PlayerState) override;
 
 protected:
@@ -49,6 +55,11 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category="Race")
 	float PositionUpdatePeriod = 0.2f;
+
+	// Respawns land this far above the checkpoint's registered location so
+	// the pawn never spawns intersecting the track surface.
+	UPROPERTY(EditDefaultsOnly, Category="Race")
+	float RespawnHeightOffset = 150.f;
 
 	int32 TotalLaps = 3;
 	// Racers that crossed the final finish line, in finish order; their
