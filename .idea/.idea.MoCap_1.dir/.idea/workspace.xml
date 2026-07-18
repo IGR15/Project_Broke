@@ -16,16 +16,7 @@
   <component name="ChangeListManager">
     <list default="true" id="39afaa26-1d8f-4281-bcde-dd54e12f16b0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MoCap_1.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MoCap_1.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_MO_Base.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_MO_Base.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/MovementModes/BP_MovementMode_Slide.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/MovementModes/BP_MovementMode_Slide.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/MovementModes/BP_MovementTransition_FromSlide.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/MovementModes/BP_MovementTransition_FromSlide.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/MovementModes/BP_MovementTransition_ToSlide.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/MovementModes/BP_MovementTransition_ToSlide.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/SandboxCharacter_CMC.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/SandboxCharacter_CMC.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/SandboxCharacter_CMC_ABP.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/SandboxCharacter_CMC_ABP.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/SandboxCharacter_Mover.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/SandboxCharacter_Mover.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/IMC_Sandbox.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Input/IMC_Sandbox.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MoCap_1/Private/Character/MO_BaseCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MoCap_1/Private/Character/MO_BaseCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MoCap_1/Public/Character/MO_BaseCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MoCap_1/Public/Character/MO_BaseCharacter.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +45,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="cidr-memory-view://2" root0="FORCE_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://4" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files/Epic Games/UE_5.8/Engine/Source/Runtime/CoreUObject/Private/StructUtils/InstancedStruct.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files/Epic Games/UE_5.8/Engine/Source/Runtime/Engine/Private/Character.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files/Epic Games/UE_5.8/Engine/Source/Runtime/Engine/Private/KismetSystemLibrary.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -76,23 +67,23 @@
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0000307315470671" />
-      <entry key="MS500" value="1.1478935087096644" />
-      <entry key="S2" value="2.5350697132057096" />
-      <entry key="S5" value="4.021636300589488" />
-      <entry key="S10" value="4.866840712440014" />
-      <entry key="S30" value="5.584279938391928" />
-      <entry key="S60" value="5.7869537232429025" />
-      <entry key="M2" value="5.89214498359023" />
-      <entry key="M5" value="5.956533705702209" />
-      <entry key="M10" value="5.978212413515551" />
-      <entry key="M15" value="5.98546281554353" />
-      <entry key="M30" value="5.992725367404757" />
-      <entry key="H1" value="5.996751778302553" />
-      <entry key="H2" value="6.047101352088818" />
-      <entry key="H4" value="7.168243775956532" />
-      <entry key="D1" value="90.9166371767635" />
-      <entry key="W1" value="201.53989330503126" />
+      <entry key="MS100" value="1.085971363633734" />
+      <entry key="MS500" value="1.6121682117104879" />
+      <entry key="S2" value="1.9174349936595556" />
+      <entry key="S5" value="2.8634188880842" />
+      <entry key="S10" value="4.93346893654893" />
+      <entry key="S30" value="8.623620305222065" />
+      <entry key="S60" value="10.134716020841266" />
+      <entry key="M2" value="11.018163563743627" />
+      <entry key="M5" value="11.594764133774946" />
+      <entry key="M10" value="11.795237697364852" />
+      <entry key="M15" value="11.863010657254634" />
+      <entry key="M30" value="11.931263623953111" />
+      <entry key="H1" value="11.965960517694992" />
+      <entry key="H2" value="12.031612889173562" />
+      <entry key="H4" value="13.159594975802513" />
+      <entry key="D1" value="96.90396695727225" />
+      <entry key="W1" value="207.53596427053236" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -102,35 +93,35 @@
       <entry key="S10" value="0.0" />
       <entry key="S30" value="0.0" />
       <entry key="S60" value="0.0" />
-      <entry key="M2" value="1.0360957134094646E-277" />
-      <entry key="M5" value="1.607535658749194E-111" />
-      <entry key="M10" value="4.0179828786542776E-56" />
-      <entry key="M15" value="1.1994891302346127E-37" />
-      <entry key="M30" value="4.376317560798694E-19" />
-      <entry key="H1" value="1.3741330454431754E-9" />
-      <entry key="H2" value="1.372094132581007E-4" />
-      <entry key="H4" value="0.05489355540639819" />
-      <entry key="D1" value="8.948270336330697" />
-      <entry key="W1" value="21.583932504107477" />
+      <entry key="M2" value="9.407493442662548E-278" />
+      <entry key="M5" value="1.54664354822694E-111" />
+      <entry key="M10" value="3.9411493363642996E-56" />
+      <entry key="M15" value="1.1841485560167882E-37" />
+      <entry key="M30" value="4.3482425834021805E-19" />
+      <entry key="H1" value="1.3697182805664182E-9" />
+      <entry key="H2" value="1.3698882522468763E-4" />
+      <entry key="H4" value="0.05484941218094975" />
+      <entry key="D1" value="8.947070626789092" />
+      <entry key="W1" value="21.583519081228804" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9526678892124391" />
-      <entry key="MS500" value="1.1373537302339365" />
-      <entry key="S2" value="2.529332250057298" />
-      <entry key="S5" value="4.017642439873252" />
-      <entry key="S10" value="4.8643188429336774" />
-      <entry key="S30" value="5.5832852369551995" />
-      <entry key="S60" value="5.786434217069324" />
-      <entry key="M2" value="5.891879449671988" />
-      <entry key="M5" value="5.956426072629298" />
-      <entry key="M10" value="5.978158357670657" />
-      <entry key="M15" value="5.985426724930397" />
-      <entry key="M30" value="5.992707295355065" />
-      <entry key="H1" value="5.996742733960856" />
-      <entry key="H2" value="6.047233783879262" />
-      <entry key="H4" value="7.223120392052187" />
-      <entry key="D1" value="99.86454092212928" />
-      <entry key="W1" value="223.12369947978854" />
+      <entry key="MS100" value="1.0417333637485702" />
+      <entry key="MS500" value="1.5988141881675357" />
+      <entry key="S2" value="1.913229108925139" />
+      <entry key="S5" value="2.858355392170041" />
+      <entry key="S10" value="4.927180371224173" />
+      <entry key="S30" value="8.619368016127744" />
+      <entry key="S60" value="10.132158288239639" />
+      <entry key="M2" value="11.01675957083691" />
+      <entry key="M5" value="11.594170019327587" />
+      <entry key="M10" value="11.794935000433888" />
+      <entry key="M15" value="11.862807589240942" />
+      <entry key="M30" value="11.93116145067049" />
+      <entry key="H1" value="11.965909268817937" />
+      <entry key="H2" value="12.031723959934697" />
+      <entry key="H4" value="13.214416880392893" />
+      <entry key="D1" value="105.85066927750583" />
+      <entry key="W1" value="229.1193567726983" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -347,7 +338,7 @@
       <workItem from="1784007416866" duration="14256000" />
       <workItem from="1784099987643" duration="3925000" />
       <workItem from="1784186119697" duration="5913000" />
-      <workItem from="1784364972923" duration="2018000" />
+      <workItem from="1784364972923" duration="8187000" />
     </task>
     <task id="LOCAL-00001" summary="falling platforms">
       <option name="closed" value="true" />
@@ -525,7 +516,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784153934598</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="slide movement">
+      <option name="closed" value="true" />
+      <created>1784369429020</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1784369429020</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -556,7 +555,8 @@
     <MESSAGE value="ui fix" />
     <MESSAGE value="race System" />
     <MESSAGE value="check point respawn" />
-    <option name="LAST_COMMIT_MESSAGE" value="check point respawn" />
+    <MESSAGE value="slide movement" />
+    <option name="LAST_COMMIT_MESSAGE" value="slide movement" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
