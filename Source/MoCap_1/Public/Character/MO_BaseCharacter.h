@@ -11,6 +11,7 @@ class ULaunchComponent;
 class USpeedBoostComponent;
 class UUserWidget;
 class UAbilitySystemComponent;
+class UInputAction;
 
 UCLASS()
 class MOCAP_1_API AMO_BaseCharacter : public ACharacter, public IAbilitySystemInterface
@@ -18,7 +19,9 @@ class MOCAP_1_API AMO_BaseCharacter : public ACharacter, public IAbilitySystemIn
 	GENERATED_BODY()
 
 public:
-	AMO_BaseCharacter();
+	// FObjectInitializer ctor so the CharacterMovementComponent can be swapped
+	// for UMO_CharacterMovementComponent (slide support).
+	AMO_BaseCharacter(const FObjectInitializer& ObjectInitializer);
 	UPROPERTY(BlueprintReadOnly, Category="Launch")
 	bool bIsObstacleLaunch = false;
 
@@ -42,6 +45,11 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category="HUD")
 	TSubclassOf<UUserWidget> PlayerHUDClass;
 
+	// Hold-to-slide input (LeftControl). Forwarded to
+	// UMO_CharacterMovementComponent::SetWantsToSlide.
+	UPROPERTY(EditDefaultsOnly, Category="Input")
+	TObjectPtr<UInputAction> SlideAction;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -52,6 +60,9 @@ protected:
 	// Binds this character to the ASC living on MO_PlayerState.
 	// Called from PossessedBy (server) and OnRep_PlayerState (client).
 	virtual void InitAbilityActorInfo();
+
+	void OnSlidePressed();
+	void OnSlideReleased();
 
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;

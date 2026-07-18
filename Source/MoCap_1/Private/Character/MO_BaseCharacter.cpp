@@ -4,7 +4,9 @@
 #include "Character/MO_BaseCharacter.h"
 
 #include "AbilitySystemComponent.h"
+#include "Character/MO_CharacterMovementComponent.h"
 #include "Blueprint/UserWidget.h"
+#include "EnhancedInputComponent.h"
 #include "Components/LaunchComponent.h"
 #include "Components/SpeedBoostComponent.h"
 #include "GameFramework/PlayerController.h"
@@ -13,7 +15,8 @@
 
 
 // Sets default values
-AMO_BaseCharacter::AMO_BaseCharacter()
+AMO_BaseCharacter::AMO_BaseCharacter(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer.SetDefaultSubobjectClass<UMO_CharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
 
 	LaunchComponent= CreateDefaultSubobject<ULaunchComponent>("LaunchComponent");
@@ -40,6 +43,33 @@ void AMO_BaseCharacter::Tick(float DeltaTime)
 void AMO_BaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	UEnhancedInputComponent* EnhancedInput = Cast<UEnhancedInputComponent>(PlayerInputComponent);
+	if (!EnhancedInput || !SlideAction)
+	{
+		return;
+	}
+
+	// Hold-to-slide: Canceled covers releases the trigger classifies as aborts.
+	EnhancedInput->BindAction(SlideAction, ETriggerEvent::Started, this, &AMO_BaseCharacter::OnSlidePressed);
+	EnhancedInput->BindAction(SlideAction, ETriggerEvent::Completed, this, &AMO_BaseCharacter::OnSlideReleased);
+	EnhancedInput->BindAction(SlideAction, ETriggerEvent::Canceled, this, &AMO_BaseCharacter::OnSlideReleased);
+}
+
+void AMO_BaseCharacter::OnSlidePressed()
+{
+	if (UMO_CharacterMovementComponent* MOMovement = Cast<UMO_CharacterMovementComponent>(GetCharacterMovement()))
+	{
+		MOMovement->SetWantsToSlide(true);
+	}
+}
+
+void AMO_BaseCharacter::OnSlideReleased()
+{
+	if (UMO_CharacterMovementComponent* MOMovement = Cast<UMO_CharacterMovementComponent>(GetCharacterMovement()))
+	{
+		MOMovement->SetWantsToSlide(false);
+	}
 }
 
 float AMO_BaseCharacter::GetSpeedBoostMultiplier() const
