@@ -38,10 +38,23 @@ public:
 	bool IsSliding() const;
 
 	// 0..1 fill of the boost charge for the current slide (SlideElapsedTime /
-	// SlideChargeTime); 0 when not sliding. The charge-bar UI polls this; the
-	// Mario-Kart-style leap it will pay for comes later.
+	// SlideChargeTime); 0 when not sliding. The charge-bar UI polls this.
 	UFUNCTION(BlueprintPure, Category="Slide")
 	float GetSlideChargeFraction() const;
+
+	// True while sliding with a full charge bar: jumping now performs the
+	// boosted leap. Exiting the slide without jumping forfeits the charge
+	// (use it or lose it, like a drift boost).
+	UFUNCTION(BlueprintPure, Category="Slide")
+	bool IsSlideJumpBoostReady() const;
+
+	virtual bool DoJump(bool bReplayingMoves, float DeltaTime) override;
+
+	// Base CanAttemptJump vetoes on bWantsToCrouch, which a crouch-driven
+	// slide always has set. Jumping is allowed at any point of a slide and
+	// interrupts it (full bar = boosted leap, otherwise a plain jump), so
+	// skip the veto while sliding.
+	virtual bool CanAttemptJump() const override;
 
 	virtual float GetMaxSpeed() const override;
 	virtual float GetMaxAcceleration() const override;
@@ -118,7 +131,16 @@ protected:
 
 	// Seconds of continuous sliding needed to fill the boost charge bar.
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Slide")
-	float SlideChargeTime = 3.f;
+	float SlideChargeTime = 2.f;
+
+	// Boosted leap paid for by a full charge bar, as multiples of a regular
+	// jump: apex height ×H (jump velocity scales by √H) and horizontal travel
+	// ×D over the √H-longer airtime (horizontal speed scales by D/√H).
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Slide")
+	float SlideBoostJumpHeightMultiplier = 2.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Slide")
+	float SlideBoostJumpDistanceMultiplier = 5.f;
 
 	// Shrinks the capsule to SlideCapsuleHalfHeight, keeping the feet planted,
 	// and offsets the mesh through AMO_BaseCharacter::OnStartSlideCapsuleResize.

@@ -69,6 +69,11 @@ public:
 	virtual void OnSlideStarted();
 	virtual void OnSlideEnded();
 
+	// Base refuses to jump while bIsCrouched, which a crouch-driven slide
+	// always is — allow jumping out of a slide instead (it interrupts the
+	// slide; a full charge bar upgrades it to the boosted leap).
+	virtual bool CanJumpInternal_Implementation() const override;
+
 	// Mesh / eye-height fixups when the slide shrinks or restores the capsule,
 	// mirroring ACharacter::OnStartCrouch/OnEndCrouch. The slide keeps its own
 	// capsule path because GASP's stance logic owns the crouch system.

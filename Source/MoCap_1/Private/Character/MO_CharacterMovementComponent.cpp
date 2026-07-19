@@ -23,6 +23,64 @@ float UMO_CharacterMovementComponent::GetSlideChargeFraction() const
 	return FMath::Clamp(SlideElapsedTime / SlideChargeTime, 0.f, 1.f);
 }
 
+bool UMO_CharacterMovementComponent::IsSlideJumpBoostReady() const
+{
+	return IsSliding() && GetSlideChargeFraction() >= 1.f;
+}
+
+bool UMO_CharacterMovementComponent::DoJump(bool bReplayingMoves, float DeltaTime)
+{
+	if (!IsSliding())
+	{
+		return Super::DoJump(bReplayingMoves, DeltaTime);
+	}
+
+	// Jumping interrupts the slide at any charge. Clear the crouch intent
+	// before Super: it flips to falling, and the slide-exit capsule restore
+	// that triggers reads bWantsToCrouch for its target height — cleared
+	// now, the character goes straight to standing and lands as a stand,
+	// not a crouch.
+	bWantsToCrouch = false;
+
+	if (!IsSlideJumpBoostReady())
+	{
+		// Plain jump out of the slide; an unfilled charge is forfeited.
+		return Super::DoJump(bReplayingMoves, DeltaTime);
+	}
+
+	// Boosted leap out of the slide. Apex height scales with JumpZ² and
+	// airtime with JumpZ, so height ×H needs JumpZ ×√H; distance ×D over the
+	// ×√H airtime needs horizontal speed ×(D/√H). Runs inside the predicted
+	// move on client and server, and both derive the ready state from the
+	// same simulation, so no extra replication is needed.
+	const float JumpZFactor = FMath::Sqrt(FMath::Max(SlideBoostJumpHeightMultiplier, 0.f));
+	const float HorizontalFactor = JumpZFactor > 0.f ? SlideBoostJumpDistanceMultiplier / JumpZFactor : 0.f;
+
+	TGuardValue<float> JumpZGuard(JumpZVelocity, JumpZVelocity * JumpZFactor);
+	if (!Super::DoJump(bReplayingMoves, DeltaTime))
+	{
+		return false;
+	}
+
+	// Super already flipped us to falling, which ends the slide (bar/foley
+	// stop via OnMovementModeChanged). Scale the carried slide speed for the
+	// ×D travel.
+	Velocity.X *= HorizontalFactor;
+	Velocity.Y *= HorizontalFactor;
+	return true;
+}
+
+bool UMO_CharacterMovementComponent::CanAttemptJump() const
+{
+	// The !bWantsToCrouch veto in Super would make jumping out of a
+	// crouch-driven slide impossible — it always wants crouch.
+	if (IsSliding())
+	{
+		return IsJumpAllowed();
+	}
+	return Super::CanAttemptJump();
+}
+
 bool UMO_CharacterMovementComponent::IsMovingOnGround() const
 {
 	return (MovementMode == MOVE_Walking || MovementMode == MOVE_NavWalking || IsSliding()) && UpdatedComponent;

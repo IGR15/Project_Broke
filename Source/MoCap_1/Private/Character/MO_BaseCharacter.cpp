@@ -115,6 +115,21 @@ void AMO_BaseCharacter::OnSlideStarted()
 	}
 }
 
+bool AMO_BaseCharacter::CanJumpInternal_Implementation() const
+{
+	const UMO_CharacterMovementComponent* MOMovement = Cast<UMO_CharacterMovementComponent>(GetCharacterMovement());
+	if (MOMovement && MOMovement->IsSliding())
+	{
+		// A crouch-driven slide is always IsCrouched(), which the base
+		// implementation vetoes outright. Skip only that veto and keep the
+		// rest: JumpIsAllowedInternal routes through the movement component's
+		// CanAttemptJump, which allows the jump for the whole slide (jump
+		// interrupts the slide; a full bar upgrades it to the boosted leap).
+		return JumpIsAllowedInternal();
+	}
+	return Super::CanJumpInternal_Implementation();
+}
+
 void AMO_BaseCharacter::OnSlideEnded()
 {
 	if (SlideChargeBarWidget)
