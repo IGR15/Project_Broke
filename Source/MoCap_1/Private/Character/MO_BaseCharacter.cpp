@@ -6,10 +6,11 @@
 #include "AbilitySystemComponent.h"
 #include "Character/MO_CharacterMovementComponent.h"
 #include "Blueprint/UserWidget.h"
-#include "EnhancedInputComponent.h"
+#include "Components/AudioComponent.h"
 #include "Components/LaunchComponent.h"
 #include "Components/SpeedBoostComponent.h"
 #include "GameFramework/PlayerController.h"
+#include "Kismet/GameplayStatics.h"
 #include "Player/MO_PlayerState.h"
 #include "UI/HUD/MO_HUD.h"
 
@@ -27,7 +28,43 @@ AMO_BaseCharacter::AMO_BaseCharacter(const FObjectInitializer& ObjectInitializer
 void AMO_BaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+}
+
+void AMO_BaseCharacter::OnStartSlideCapsuleResize(float HalfHeightAdjust, float ScaledHalfHeightAdjust)
+{
+	RecalculateBaseEyeHeight();
+
+	// Shift the mesh up relative to the shrunken capsule so the visual stays
+	// on the floor — same fixup ACharacter::OnStartCrouch does.
+	const ACharacter* DefaultChar = GetDefault<ACharacter>(GetClass());
+	if (GetMesh() && DefaultChar->GetMesh())
+	{
+		FVector& MeshRelativeLocation = GetMesh()->GetRelativeLocation_DirectMutable();
+		MeshRelativeLocation.Z = DefaultChar->GetMesh()->GetRelativeLocation().Z + HalfHeightAdjust;
+		BaseTranslationOffset.Z = MeshRelativeLocation.Z;
+	}
+	else
+	{
+		BaseTranslationOffset.Z = DefaultChar->GetBaseTranslationOffset().Z + HalfHeightAdjust;
+	}
+}
+
+void AMO_BaseCharacter::OnEndSlideCapsuleResize(float HalfHeightAdjust, float ScaledHalfHeightAdjust)
+{
+	RecalculateBaseEyeHeight();
+
+	const ACharacter* DefaultChar = GetDefault<ACharacter>(GetClass());
+	if (GetMesh() && DefaultChar->GetMesh())
+	{
+		FVector& MeshRelativeLocation = GetMesh()->GetRelativeLocation_DirectMutable();
+		MeshRelativeLocation.Z = DefaultChar->GetMesh()->GetRelativeLocation().Z;
+		BaseTranslationOffset.Z = MeshRelativeLocation.Z;
+	}
+	else
+	{
+		BaseTranslationOffset.Z = DefaultChar->GetBaseTranslationOffset().Z;
+	}
 }
 
 void AMO_BaseCharacter::Tick(float DeltaTime)
@@ -37,38 +74,60 @@ void AMO_BaseCharacter::Tick(float DeltaTime)
 	{
 		bIsObstacleLaunch = LaunchComponent->IsObstacleLaunch();
 	}
+
+	// Mover parity (Update_SlidingAudio): the loop's MetaSound scales with speed.
+	if (SlidingAudioComponent)
+	{
+		SlidingAudioComponent->SetFloatParameter(TEXT("Speed"), GetVelocity().Size());
+	}
 }
 
-// Called to bind functionality to input
-void AMO_BaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void AMO_BaseCharacter::OnSlideStarted()
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	// Charge bar is per-player UI: local players only.
+	if (SlideChargeBarClass && IsLocallyControlled())
+	{
+		if (!SlideChargeBarWidget)
+		{
+			if (APlayerController* PC = Cast<APlayerController>(GetController()))
+			{
+				SlideChargeBarWidget = CreateWidget<UUserWidget>(PC, SlideChargeBarClass);
+			}
+		}
+		if (SlideChargeBarWidget && !SlideChargeBarWidget->IsInViewport())
+		{
+			SlideChargeBarWidget->AddToViewport();
+		}
+	}
 
-	UEnhancedInputComponent* EnhancedInput = Cast<UEnhancedInputComponent>(PlayerInputComponent);
-	if (!EnhancedInput || !SlideAction)
+	// A client replay can re-enter the slide mode; don't stack loops.
+	if (!SlideLoopSound || SlidingAudioComponent)
 	{
 		return;
 	}
 
-	// Hold-to-slide: Canceled covers releases the trigger classifies as aborts.
-	EnhancedInput->BindAction(SlideAction, ETriggerEvent::Started, this, &AMO_BaseCharacter::OnSlidePressed);
-	EnhancedInput->BindAction(SlideAction, ETriggerEvent::Completed, this, &AMO_BaseCharacter::OnSlideReleased);
-	EnhancedInput->BindAction(SlideAction, ETriggerEvent::Canceled, this, &AMO_BaseCharacter::OnSlideReleased);
-}
-
-void AMO_BaseCharacter::OnSlidePressed()
-{
-	if (UMO_CharacterMovementComponent* MOMovement = Cast<UMO_CharacterMovementComponent>(GetCharacterMovement()))
+	SlidingAudioComponent = UGameplayStatics::SpawnSoundAttached(
+		SlideLoopSound, GetMesh(), NAME_None, FVector::ZeroVector,
+		EAttachLocation::KeepRelativeOffset, /*bStopWhenAttachedToDestroyed*/ true);
+	if (SlidingAudioComponent)
 	{
-		MOMovement->SetWantsToSlide(true);
+		SlidingAudioComponent->SetFloatParameter(TEXT("Speed"), GetVelocity().Size());
 	}
 }
 
-void AMO_BaseCharacter::OnSlideReleased()
+void AMO_BaseCharacter::OnSlideEnded()
 {
-	if (UMO_CharacterMovementComponent* MOMovement = Cast<UMO_CharacterMovementComponent>(GetCharacterMovement()))
+	if (SlideChargeBarWidget)
 	{
-		MOMovement->SetWantsToSlide(false);
+		SlideChargeBarWidget->RemoveFromParent();
+	}
+
+	if (SlidingAudioComponent)
+	{
+		// FadeOut stops the component when it reaches zero; the pointer is
+		// dropped now so a new slide can start a fresh loop over the tail.
+		SlidingAudioComponent->FadeOut(SlideAudioFadeOutTime, 0.f);
+		SlidingAudioComponent = nullptr;
 	}
 }
 

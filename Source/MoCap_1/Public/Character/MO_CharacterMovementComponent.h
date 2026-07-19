@@ -15,15 +15,16 @@
  * physics — it is ground movement with slide-tuned speed/acceleration/braking
  * (see the Slide category below; defaults mirror the Mover BP values).
  *
- * Input: hold-to-slide via bWantsToSlide (bound to IA_Slide in
- * AMO_BaseCharacter), deliberately independent of the crouch system — GASP's
- * stance logic owns crouch and fights external bWantsToCrouch changes.
+ * Input: crouch-driven like the Mover version — crouching (C toggle) while
+ * moving faster than SlideEnterSpeed starts the slide; toggling crouch off or
+ * bleeding below SlideExitSpeed ends it, and the exit clears the crouch
+ * intent (Mover's FromSlide does the same) so the character stands back up.
+ * bWantsToCrouch already rides the native compressed flags, so no custom
+ * saved-move data is needed.
  *
- * Prediction: bWantsToSlide rides the saved-move compressed flags
- * (FLAG_Custom_0) exactly like crouch/jump, so the server sees the same input
- * the client predicted with. SlideElapsedTime (initial-boost phase) is not in
- * saved moves; a client replay can re-run the boost for up to 0.2s, which only
- * affects feel during a correction and self-heals with the next server update.
+ * Prediction: SlideElapsedTime (initial-boost phase) is not in saved moves; a
+ * client replay can re-run the boost for up to 0.2s, which only affects feel
+ * during a correction and self-heals with the next server update.
  */
 UCLASS()
 class MOCAP_1_API UMO_CharacterMovementComponent : public UCharacterMovementComponent
@@ -36,13 +37,11 @@ public:
 	UFUNCTION(BlueprintPure, Category="Slide")
 	bool IsSliding() const;
 
-	// Hold-to-slide input intent (set from IA_Slide). Replicated to the
-	// server through the saved-move compressed flags.
-	UFUNCTION(BlueprintCallable, Category="Slide")
-	void SetWantsToSlide(bool bNewWantsToSlide);
-
-	virtual void UpdateFromCompressedFlags(uint8 Flags) override;
-	virtual FNetworkPredictionData_Client* GetPredictionData_Client() const override;
+	// 0..1 fill of the boost charge for the current slide (SlideElapsedTime /
+	// SlideChargeTime); 0 when not sliding. The charge-bar UI polls this; the
+	// Mario-Kart-style leap it will pay for comes later.
+	UFUNCTION(BlueprintPure, Category="Slide")
+	float GetSlideChargeFraction() const;
 
 	virtual float GetMaxSpeed() const override;
 	virtual float GetMaxAcceleration() const override;
@@ -54,10 +53,12 @@ protected:
 	virtual void PhysCustom(float deltaTime, int32 Iterations) override;
 	virtual void OnMovementModeChanged(EMovementMode PreviousMovementMode, uint8 PreviousCustomMode) override;
 
-	// Crouching while moving faster than this on the ground starts a slide
-	// (Mover: BP_MovementTransition_ToSlide).
+	// Crouching while moving faster than this on the ground starts a slide;
+	// slower presses just crouch. Sits between GASP's run (500) and sprint
+	// (700) forward speeds so only a sprinting character slides (Mover's
+	// BP_MovementTransition_ToSlide used 380, which run speed also cleared).
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Slide")
-	float SlideEnterSpeed = 380.f;
+	float SlideEnterSpeed = 600.f;
 
 	// Dropping to or below this speed (or releasing crouch) ends the slide
 	// (Mover: BP_MovementTransition_FromSlide).
@@ -109,51 +110,41 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Slide")
 	float SlideGroundFriction = 0.f;
 
+	// Capsule half height while sliding (standing height comes from the class
+	// defaults). Clamped to the capsule radius. Lets the slide pass under
+	// obstacles the standing capsule would hit.
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Slide")
+	float SlideCapsuleHalfHeight = 45.f;
+
+	// Seconds of continuous sliding needed to fill the boost charge bar.
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Slide")
+	float SlideChargeTime = 3.f;
+
+	// Shrinks the capsule to SlideCapsuleHalfHeight, keeping the feet planted,
+	// and offsets the mesh through AMO_BaseCharacter::OnStartSlideCapsuleResize.
+	// Mirrors UCharacterMovementComponent::Crouch, but stays independent of the
+	// crouch system because GASP's stance logic owns that.
+	void ShrinkCapsuleForSlide();
+
+	// Restores the capsule if the restored size fits where the character is
+	// (UnCrouch-style encroachment test). While still crouched — the usual end
+	// of a crouch-driven slide — the target is the crouched height and UnCrouch
+	// grows the rest when the player stands; otherwise the standing default.
+	// Returns false while blocked overhead — callers keep the slide (or retry
+	// next tick) until it succeeds.
+	bool TryRestoreCapsuleAfterSlide();
+
 private:
-	friend class FSavedMove_MO;
-
-	// Input intent: player is holding the slide key.
-	bool bWantsToSlide = false;
-
-	// One slide per key press: set when a slide starts, cleared when the key
-	// is released. Without this, holding slide while sprinting on flat ground
-	// oscillates enter→speed-bleed→exit→sprint→enter, which reads as jerking
-	// and never lets the slide animation settle. Derived deterministically
-	// from bWantsToSlide on both client and server, so it needs no saved-move
-	// data of its own.
-	bool bSlideInputConsumed = false;
-
 	// Seconds spent in the current slide; drives the initial-boost phase.
 	float SlideElapsedTime = 0.f;
+
+	// True while the capsule is at slide size. Like SlideElapsedTime this is
+	// derived from movement-mode transitions rather than saved-move data; the
+	// resize operations are idempotent, so a client replay re-running them is
+	// harmless.
+	bool bSlideCapsuleShrunk = false;
 
 	// Signed slope angle in degrees relative to travel direction: negative =
 	// downhill, positive = uphill, 0 on flat ground or with no valid floor.
 	float GetSlideSlopeAngle() const;
-};
-
-// Saved move carrying bWantsToSlide in FLAG_Custom_0 so the server replays
-// the same slide input the owning client predicted with.
-class FSavedMove_MO : public FSavedMove_Character
-{
-	using Super = FSavedMove_Character;
-
-public:
-	uint8 bSavedWantsToSlide : 1;
-
-	FSavedMove_MO() : bSavedWantsToSlide(0) {}
-
-	virtual void Clear() override;
-	virtual uint8 GetCompressedFlags() const override;
-	virtual bool CanCombineWith(const FSavedMovePtr& NewMove, ACharacter* InCharacter, float MaxDelta) const override;
-	virtual void SetMoveFor(ACharacter* C, float InDeltaTime, FVector const& NewAccel, FNetworkPredictionData_Client_Character& ClientData) override;
-};
-
-class FNetworkPredictionData_Client_MO : public FNetworkPredictionData_Client_Character
-{
-	using Super = FNetworkPredictionData_Client_Character;
-
-public:
-	FNetworkPredictionData_Client_MO(const UCharacterMovementComponent& ClientMovement) : Super(ClientMovement) {}
-
-	virtual FSavedMovePtr AllocateNewMove() override;
 };
