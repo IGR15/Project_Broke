@@ -67,6 +67,12 @@ bool UMO_CharacterMovementComponent::DoJump(bool bReplayingMoves, float DeltaTim
 	// ×D travel.
 	Velocity.X *= HorizontalFactor;
 	Velocity.Y *= HorizontalFactor;
+
+	// Without this, repeated slide -> boosted-jump -> slide cycles compound:
+	// each leap multiplies whatever velocity carried in (already elevated
+	// from the previous leap) by HorizontalFactor again, so speed runs away
+	// exponentially instead of resetting each cycle.
+	Velocity = Velocity.GetClampedToMaxSize2D(AbsoluteMaxSpeed);
 	return true;
 }
 
@@ -88,27 +94,32 @@ bool UMO_CharacterMovementComponent::IsMovingOnGround() const
 
 float UMO_CharacterMovementComponent::GetMaxSpeed() const
 {
+	float Result;
 	if (!IsSliding())
 	{
-		return Super::GetMaxSpeed();
-	}
-
-	float TargetSpeed;
-	if (SlideElapsedTime < InitialBoostTime)
-	{
-		TargetSpeed = InitialBoostSpeed;
+		Result = Super::GetMaxSpeed();
 	}
 	else
 	{
-		const float SlopeAngle = GetSlideSlopeAngle();
-		TargetSpeed = SlopeAngle > -ShallowSlopeAngle
-			? FlatGroundSpeed
-			: UKismetMathLibrary::MapRangeClamped(SlopeAngle, -ShallowSlopeAngle, -SteepSlopeAngle, ShallowSlopeSpeed, SteepSlopeSpeed);
+		float TargetSpeed;
+		if (SlideElapsedTime < InitialBoostTime)
+		{
+			TargetSpeed = InitialBoostSpeed;
+		}
+		else
+		{
+			const float SlopeAngle = GetSlideSlopeAngle();
+			TargetSpeed = SlopeAngle > -ShallowSlopeAngle
+				? FlatGroundSpeed
+				: UKismetMathLibrary::MapRangeClamped(SlopeAngle, -ShallowSlopeAngle, -SteepSlopeAngle, ShallowSlopeSpeed, SteepSlopeSpeed);
+		}
+
+		// Speed pads still work mid-slide.
+		const AMO_BaseCharacter* MOCharacter = Cast<AMO_BaseCharacter>(CharacterOwner);
+		Result = MOCharacter ? TargetSpeed * MOCharacter->GetSpeedBoostMultiplier() : TargetSpeed;
 	}
 
-	// Speed pads still work mid-slide.
-	const AMO_BaseCharacter* MOCharacter = Cast<AMO_BaseCharacter>(CharacterOwner);
-	return MOCharacter ? TargetSpeed * MOCharacter->GetSpeedBoostMultiplier() : TargetSpeed;
+	return FMath::Min(Result, AbsoluteMaxSpeed);
 }
 
 float UMO_CharacterMovementComponent::GetMaxAcceleration() const
@@ -401,6 +412,28 @@ bool UMO_CharacterMovementComponent::TryRestoreCapsuleAfterSlide()
 	}
 
 	return true;
+}
+
+void UMO_CharacterMovementComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	// Hard backstop: GetMaxSpeed() only bounds the target speed CalcVelocity
+	// accelerates/brakes toward, it does not retroactively pull down a
+	// Velocity that was set directly (boosted jump leap, speed pads, launch
+	// components, ...). Clamp here so nothing can carry speed above the cap
+	// into the next tick.
+	if (Velocity.SizeSquared() > FMath::Square(AbsoluteMaxSpeed))
+	{
+		Velocity = Velocity.GetClampedToMaxSize(AbsoluteMaxSpeed);
+	}
+
+	DebugSpeedLogTimer += DeltaTime;
+	if (DebugSpeedLogTimer >= 1.f)
+	{
+		DebugSpeedLogTimer = 0.f;
+		UE_LOG(LogTemp, Log, TEXT("[%s] Speed: %.1f"), CharacterOwner ? *CharacterOwner->GetName() : TEXT("NoOwner"), Velocity.Size());
+	}
 }
 
 float UMO_CharacterMovementComponent::GetSlideSlopeAngle() const

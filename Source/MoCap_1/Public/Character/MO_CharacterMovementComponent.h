@@ -62,9 +62,19 @@ public:
 	virtual bool IsMovingOnGround() const override;
 
 protected:
+	// Hard ceiling on GetMaxSpeed(), applied after slide/boost calculations
+	// (speed pads and slide boosts can otherwise stack past any sane speed).
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Speed")
+	float AbsoluteMaxSpeed = 3000.f;
+
+
 	virtual void UpdateCharacterStateBeforeMovement(float DeltaSeconds) override;
 	virtual void PhysCustom(float deltaTime, int32 Iterations) override;
 	virtual void OnMovementModeChanged(EMovementMode PreviousMovementMode, uint8 PreviousCustomMode) override;
+
+	// DEBUG: logs Velocity.Size() once per second. Remove once the speed cap
+	// is verified in PIE.
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	// Crouching while moving faster than this on the ground starts a slide;
 	// slower presses just crouch. Sits between GASP's run (500) and sprint
@@ -157,6 +167,9 @@ protected:
 	bool TryRestoreCapsuleAfterSlide();
 
 private:
+	// DEBUG: accumulator for the once-per-second speed log in TickComponent.
+	float DebugSpeedLogTimer = 0.f;
+
 	// Seconds spent in the current slide; drives the initial-boost phase.
 	float SlideElapsedTime = 0.f;
 
