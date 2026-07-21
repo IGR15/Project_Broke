@@ -10,7 +10,9 @@ class USphereComponent;
 class UStaticMeshComponent;
 class UProjectileMovementComponent;
 class UNiagaraSystem;
+class UNiagaraComponent;
 class USoundBase;
+class UAudioComponent;
 
 /**
  * Shared plumbing for the bazooka's rockets (Aura-projectile pattern):
@@ -30,6 +32,7 @@ public:
 protected:
 	virtual void PreInitializeComponents() override;
 	virtual void BeginPlay() override;
+	virtual void Destroyed() override;
 
 	UFUNCTION()
 	virtual void OnSphereOverlap(
@@ -74,6 +77,25 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Projectile|Effects")
 	TObjectPtr<USoundBase> ImpactSound;
+
+	// Looping thrust sound played while the missile is in flight (Aura-projectile
+	// pattern: spawned attached in BeginPlay, stopped on impact/destroy).
+	UPROPERTY(EditAnywhere, Category = "Projectile|Effects")
+	TObjectPtr<USoundBase> ThrusterSound;
+
+	UPROPERTY()
+	TObjectPtr<UAudioComponent> ThrusterSoundComponent;
+
+	// Exhaust FX attached to the back of the mesh; acts as the missile's thrust trail.
+	UPROPERTY(EditAnywhere, Category = "Projectile|Effects")
+	TObjectPtr<UNiagaraSystem> ThrusterEffect;
+
+	UPROPERTY(VisibleAnywhere, Category = "Projectile|Effects")
+	TObjectPtr<UNiagaraComponent> ThrusterEffectComponent;
+
+	// Stops and clears the looping thrust sound/FX; safe to call more than once
+	// (impact and Destroyed() can both trigger it).
+	void StopThrusterFX();
 
 	// Safety net if the missile never overlaps anything.
 	UPROPERTY(EditAnywhere, Category = "Projectile")

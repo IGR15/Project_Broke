@@ -15,7 +15,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39afaa26-1d8f-4281-bcde-dd54e12f16b0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MoCap_1.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MoCap_1.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Projectiles/BP_HomingMissile.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Projectiles/BP_HomingMissile.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Projectiles/BP_Missile.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Projectiles/BP_Missile.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/WBP_Overlay.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/WBP_Overlay.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MoCap_1/Private/AbilitySystem/Abilities/MO_ProjectileItemAbility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MoCap_1/Private/AbilitySystem/Abilities/MO_ProjectileItemAbility.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MoCap_1/Private/Actors/MO_ProjectileBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MoCap_1/Private/Actors/MO_ProjectileBase.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MoCap_1/Public/Actors/MO_ProjectileBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MoCap_1/Public/Actors/MO_ProjectileBase.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +49,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="cidr-memory-view://8" root0="FORCE_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://5" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files/Epic Games/UE_5.8/Engine/Source/Runtime/CoreUObject/Private/StructUtils/InstancedStruct.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files/Epic Games/UE_5.8/Engine/Source/Runtime/Engine/Classes/GameFramework/Character.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../Program Files/Epic Games/UE_5.8/Engine/Source/Runtime/Engine/Private/Character.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -67,23 +72,23 @@
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0" />
-      <entry key="S10" value="1.0" />
-      <entry key="S30" value="1.0" />
-      <entry key="S60" value="1.0" />
-      <entry key="M2" value="1.0" />
-      <entry key="M5" value="1.0000000000026439" />
-      <entry key="M10" value="1.0000036359112454" />
-      <entry key="M15" value="1.0004043262310718" />
-      <entry key="M30" value="1.0449648381828982" />
-      <entry key="H1" value="1.48022273415768" />
-      <entry key="H2" value="2.8868800396007455" />
-      <entry key="H4" value="6.736624290297452" />
-      <entry key="D1" value="77.760503639557" />
-      <entry key="W1" value="214.6896623390756" />
+      <entry key="MS100" value="1.0000834911440157" />
+      <entry key="MS500" value="1.2585158130538445" />
+      <entry key="S2" value="2.197445101173151" />
+      <entry key="S5" value="2.628804596687601" />
+      <entry key="S10" value="2.804849305031585" />
+      <entry key="S30" value="2.9327028206044576" />
+      <entry key="S60" value="2.9660624140858225" />
+      <entry key="M2" value="2.9829583338174652" />
+      <entry key="M5" value="2.9931657634380144" />
+      <entry key="M10" value="2.9965835759474007" />
+      <entry key="M15" value="2.998123148691886" />
+      <entry key="M30" value="3.043796956365885" />
+      <entry key="H1" value="3.479506988112733" />
+      <entry key="H2" value="4.886309277286838" />
+      <entry key="H4" value="8.736047605024407" />
+      <entry key="D1" value="79.75951181547168" />
+      <entry key="W1" value="216.68927395334825" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -94,34 +99,34 @@
       <entry key="S30" value="0.0" />
       <entry key="S60" value="0.0" />
       <entry key="M2" value="0.0" />
-      <entry key="M5" value="1.3733717077683356E-168" />
-      <entry key="M10" value="1.1744156295635786E-84" />
-      <entry key="M15" value="1.1381656571165207E-56" />
-      <entry key="M30" value="1.3480729940777274E-28" />
-      <entry key="H1" value="2.411743261916886E-14" />
-      <entry key="H2" value="5.748242114646471E-7" />
-      <entry key="H4" value="0.0035530141172331084" />
-      <entry key="D1" value="5.6700256669702975" />
-      <entry key="W1" value="20.22194150387072" />
+      <entry key="M5" value="1.3683925443000978E-168" />
+      <entry key="M10" value="1.1722847726638892E-84" />
+      <entry key="M15" value="1.1367885171020643E-56" />
+      <entry key="M30" value="1.3472571870107844E-28" />
+      <entry key="H1" value="2.4110133997492658E-14" />
+      <entry key="H2" value="5.747372257979342E-7" />
+      <entry key="H4" value="0.0035527452759171233" />
+      <entry key="D1" value="5.6699541603014865" />
+      <entry key="W1" value="20.221905071395447" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.8585654364377537" />
-      <entry key="MS500" value="0.9699619103417348" />
-      <entry key="S2" value="0.9924043746858185" />
-      <entry key="S5" value="0.9969547984662518" />
-      <entry key="S10" value="0.9984762383082793" />
-      <entry key="S30" value="0.99949182123418" />
-      <entry key="S60" value="0.999745878328178" />
-      <entry key="M2" value="0.9998729310908352" />
-      <entry key="M5" value="0.9999491705012656" />
-      <entry key="M10" value="0.9999782206744241" />
-      <entry key="M15" value="1.0003873706850077" />
-      <entry key="M30" value="1.0449556943440568" />
-      <entry key="H1" value="1.4802149358554308" />
-      <entry key="H2" value="2.886872163797515" />
-      <entry key="H4" value="6.74016760269229" />
-      <entry key="D1" value="83.43029287757403" />
-      <entry key="W1" value="234.91148473330026" />
+      <entry key="MS100" value="0.8766401552248063" />
+      <entry key="MS500" value="1.196857801104794" />
+      <entry key="S2" value="2.1489313076339336" />
+      <entry key="S5" value="2.6032913450107773" />
+      <entry key="S10" value="2.7908450991786076" />
+      <entry key="S30" value="2.927732607207201" />
+      <entry key="S60" value="2.9635378816059146" />
+      <entry key="M2" value="2.98168608282137" />
+      <entry key="M5" value="2.9926544501031778" />
+      <entry key="M10" value="2.9963275155709423" />
+      <entry key="M15" value="2.997952340025448" />
+      <entry key="M30" value="3.0437108414862353" />
+      <entry key="H1" value="3.4794606939399566" />
+      <entry key="H2" value="4.886282151073792" />
+      <entry key="H4" value="8.739581022889546" />
+      <entry key="D1" value="85.42922794531151" />
+      <entry key="W1" value="236.91105968609725" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -341,6 +346,7 @@
       <workItem from="1784364972923" duration="9440000" />
       <workItem from="1784443332083" duration="10227000" />
       <workItem from="1784537174635" duration="13250000" />
+      <workItem from="1784621418077" duration="10455000" />
     </task>
     <task id="LOCAL-00001" summary="falling platforms">
       <option name="closed" value="true" />
@@ -566,7 +572,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784568338034</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="projectils">
+      <option name="closed" value="true" />
+      <created>1784631766525</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1784631766525</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -576,7 +590,6 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="." />
     <MESSAGE value="mystre box" />
     <MESSAGE value="stuff" />
     <MESSAGE value="effect" />
@@ -601,7 +614,8 @@
     <MESSAGE value="jump boost" />
     <MESSAGE value="balance" />
     <MESSAGE value="idk" />
-    <option name="LAST_COMMIT_MESSAGE" value="idk" />
+    <MESSAGE value="projectils" />
+    <option name="LAST_COMMIT_MESSAGE" value="projectils" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

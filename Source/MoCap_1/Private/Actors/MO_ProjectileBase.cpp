@@ -4,11 +4,13 @@
 #include "Actors/MO_ProjectileBase.h"
 
 #include "Character/MO_BaseCharacter.h"
+#include "Components/AudioComponent.h"
 #include "Components/LaunchComponent.h"
 #include "Components/SphereComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraSystem.h"
 
@@ -21,9 +23,9 @@ AMO_ProjectileBase::AMO_ProjectileBase()
 	CollisionComp->SetSphereRadius(20.f);
 	CollisionComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	CollisionComp->SetCollisionResponseToAllChannels(ECR_Ignore);
+	// TEMP: players only (ECC_Pawn) for testing - re-add WorldStatic/WorldDynamic
+	// overlap once the missile is meant to hit level geometry too.
 	CollisionComp->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
-	CollisionComp->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Overlap);
-	CollisionComp->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Overlap);
 	CollisionComp->SetGenerateOverlapEvents(true);
 
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>("MeshComp");
@@ -36,6 +38,12 @@ AMO_ProjectileBase::AMO_ProjectileBase()
 	{
 		MeshComp->SetStaticMesh(DefaultRocketMesh.Object);
 	}
+
+	ThrusterEffectComponent = CreateDefaultSubobject<UNiagaraComponent>("ThrusterEffectComponent");
+	ThrusterEffectComponent->SetupAttachment(MeshComp);
+	// Mesh-local tail position (SM_Rocket bounds run roughly -28..+28 on X, nose at +X).
+	ThrusterEffectComponent->SetRelativeLocation(FVector(-28.f, 0.f, 0.f));
+	ThrusterEffectComponent->bAutoActivate = false;
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovement");
 	ProjectileMovement->UpdatedComponent = CollisionComp;
@@ -60,6 +68,11 @@ void AMO_ProjectileBase::PreInitializeComponents()
 		ProjectileMovement->MaxSpeed = Speed;
 	}
 
+	if (ThrusterEffectComponent && ThrusterEffect)
+	{
+		ThrusterEffectComponent->SetAsset(ThrusterEffect);
+	}
+
 	Super::PreInitializeComponents();
 }
 
@@ -77,6 +90,16 @@ void AMO_ProjectileBase::BeginPlay()
 	if (HasAuthority())
 	{
 		SetLifeSpan(LifeSpanSeconds);
+	}
+
+	if (ThrusterSound)
+	{
+		ThrusterSoundComponent = UGameplayStatics::SpawnSoundAttached(ThrusterSound, GetRootComponent());
+	}
+
+	if (ThrusterEffectComponent && ThrusterEffect)
+	{
+		ThrusterEffectComponent->Activate(true);
 	}
 }
 
@@ -114,6 +137,8 @@ void AMO_ProjectileBase::OnImpact(AActor* HitActor, const FVector& HitLocation, 
 		UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, HitLocation);
 	}
 
+	StopThrusterFX();
+
 	if (!HasAuthority())
 	{
 		return;
@@ -142,4 +167,26 @@ void AMO_ProjectileBase::OnImpact(AActor* HitActor, const FVector& HitLocation, 
 		ProjectileMovement->StopMovementImmediately();
 	}
 	SetLifeSpan(0.01f);
+}
+
+void AMO_ProjectileBase::Destroyed()
+{
+	StopThrusterFX();
+
+	Super::Destroyed();
+}
+
+void AMO_ProjectileBase::StopThrusterFX()
+{
+	if (ThrusterSoundComponent)
+	{
+		ThrusterSoundComponent->Stop();
+		ThrusterSoundComponent->DestroyComponent();
+		ThrusterSoundComponent = nullptr;
+	}
+
+	if (ThrusterEffectComponent)
+	{
+		ThrusterEffectComponent->Deactivate();
+	}
 }

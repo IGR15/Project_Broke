@@ -5,6 +5,7 @@
 
 #include "Actors/MO_HomingMissile.h"
 #include "Actors/MO_ProjectileBase.h"
+#include "Camera/PlayerCameraManager.h"
 #include "GameFramework/Character.h"
 #include "Player/MO_PlayerController.h"
 
@@ -22,6 +23,7 @@ void UMO_ProjectileItemAbility::OnItemActivated(
 	}
 
 	ACharacter* AvatarCharacter = Cast<ACharacter>(ActorInfo->AvatarActor.Get());
+	APlayerController* PC = Cast<APlayerController>(ActorInfo->PlayerController.Get());
 
 	if (!AvatarCharacter)
 	{
@@ -33,10 +35,16 @@ void UMO_ProjectileItemAbility::OnItemActivated(
 	}
 	else
 	{
-		const FVector Forward = AvatarCharacter->GetActorForwardVector();
+		// Aim along the camera's look direction (where the center-screen
+		// crosshair points), not the character's facing - they diverge whenever
+		// the avatar is strafing or the camera has been independently rotated.
+		const FRotator AimRotation = (PC && PC->PlayerCameraManager)
+			? PC->PlayerCameraManager->GetCameraRotation()
+			: AvatarCharacter->GetActorRotation();
+		const FVector Forward = AimRotation.Vector();
 		const FVector SpawnLocation =
 			AvatarCharacter->GetActorLocation() + Forward * SpawnForwardOffset + FVector::UpVector * SpawnUpOffset;
-		const FRotator SpawnRotation = Forward.Rotation();
+		const FRotator SpawnRotation = AimRotation;
 
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.Owner = AvatarCharacter;
@@ -63,9 +71,9 @@ void UMO_ProjectileItemAbility::OnItemActivated(
 			if (AMO_HomingMissile* Homing = Cast<AMO_HomingMissile>(Projectile))
 			{
 				AActor* Target = nullptr;
-				if (AMO_PlayerController* PC = Cast<AMO_PlayerController>(ActorInfo->PlayerController.Get()))
+				if (AMO_PlayerController* MOPC = Cast<AMO_PlayerController>(PC))
 				{
-					Target = PC->GetAimedRacerTarget();
+					Target = MOPC->GetAimedRacerTarget();
 				}
 				Homing->SetHomingTarget(Target);
 				UE_LOG(LogTemp, Log, TEXT("%s: homing target = %s"), *GetName(), Target ? *Target->GetName() : TEXT("none"));
