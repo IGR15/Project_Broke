@@ -25,6 +25,15 @@ protected:
 		const FGameplayAbilityActivationInfo ActivationInfo,
 		const FGameplayEventData* TriggerEventData) override;
 
+	// Runs when the item has no Blueprint-authored ActivateAbility graph.
+	// Default = debug print + EndAbility. Override to give an item real
+	// gameplay (e.g. UMO_ProjectileItemAbility spawns a projectile instead);
+	// overrides own responsibility for calling EndAbility themselves.
+	virtual void OnItemActivated(
+		const FGameplayAbilitySpecHandle Handle,
+		const FGameplayAbilityActorInfo* ActorInfo,
+		const FGameplayAbilityActivationInfo ActivationInfo);
+
 	// Items are one-shot: flags the spec for removal so the ASC clears it the
 	// moment the ability finishes ending (NotifyAbilityEnded).
 	virtual void EndAbility(

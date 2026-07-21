@@ -38,6 +38,16 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	int32 AbilityMappingContextPriority = 1;
 
+public:
+	// Racer the camera is currently pointed at: nearest AMO_BaseCharacter
+	// within MaxAngleDegrees of camera-forward and MaxDistance, with an
+	// unobstructed line of sight from the camera. Used by homing item
+	// abilities (e.g. the bazooka's homing missile) to pick a lock-on target
+	// at the moment of firing - it does not track a sustained "aim mode".
+	// Returns nullptr if nothing qualifies.
+	UFUNCTION(BlueprintCallable, Category = "Targeting")
+	AActor* GetAimedRacerTarget(float MaxDistance = 5000.f, float MaxAngleDegrees = 15.f) const;
+
 private:
 	void AbilityInputTagPressed(FGameplayTag InputTag);
 	void AbilityInputTagReleased(FGameplayTag InputTag);

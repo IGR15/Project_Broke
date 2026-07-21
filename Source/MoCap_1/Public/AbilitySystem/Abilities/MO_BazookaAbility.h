@@ -3,14 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AbilitySystem/Abilities/MO_ItemAbility.h"
+#include "AbilitySystem/Abilities/MO_ProjectileItemAbility.h"
 #include "MO_BazookaAbility.generated.h"
 
 /**
  * Bazooka item ability. Tag: Abilities.Item.Bazooka
+ * Fires the non-homing AMO_Missile.
  */
 UCLASS()
-class MOCAP_1_API UMO_BazookaAbility : public UMO_ItemAbility
+class MOCAP_1_API UMO_BazookaAbility : public UMO_ProjectileItemAbility
 {
 	GENERATED_BODY()
 

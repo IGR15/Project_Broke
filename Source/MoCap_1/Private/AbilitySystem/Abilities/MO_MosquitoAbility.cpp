@@ -3,7 +3,10 @@
 
 #include "AbilitySystem/Abilities/MO_MosquitoAbility.h"
 
+#include "Actors/MO_HomingMissile.h"
+
 UMO_MosquitoAbility::UMO_MosquitoAbility()
 {
 	ItemTagName = FName("Abilities.Item.Mosquito");
+	ProjectileClass = AMO_HomingMissile::StaticClass();
 }

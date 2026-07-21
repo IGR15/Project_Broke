@@ -4,9 +4,12 @@
 #include "Player/MO_PlayerController.h"
 
 #include "AbilitySystemGlobals.h"
+#include "Camera/PlayerCameraManager.h"
+#include "EngineUtils.h"
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/PlayerState.h"
 #include "AbilitySystem/MO_AbilitySystemComponent.h"
+#include "Character/MO_BaseCharacter.h"
 #include "Input/MO_InputComponent.h"
 #include "Input/MO_InputConfig.h"
 
@@ -74,6 +77,60 @@ void AMO_PlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 	{
 		ASC->AbilityInputTagHeld(InputTag);
 	}
+}
+
+AActor* AMO_PlayerController::GetAimedRacerTarget(float MaxDistance, float MaxAngleDegrees) const
+{
+	APawn* MyPawn = GetPawn();
+	if (!MyPawn || !PlayerCameraManager)
+	{
+		return nullptr;
+	}
+
+	const FVector CameraLocation = PlayerCameraManager->GetCameraLocation();
+	const FVector CameraForward = PlayerCameraManager->GetCameraRotation().Vector();
+	const float BestAngleCosThreshold = FMath::Cos(FMath::DegreesToRadians(MaxAngleDegrees));
+
+	AActor* BestTarget = nullptr;
+	float BestAngleCos = BestAngleCosThreshold;
+
+	for (TActorIterator<AMO_BaseCharacter> It(GetWorld()); It; ++It)
+	{
+		AMO_BaseCharacter* Candidate = *It;
+		if (!Candidate || Candidate == MyPawn)
+		{
+			continue;
+		}
+
+		const FVector ToCandidate = Candidate->GetActorLocation() - CameraLocation;
+		const float Distance = ToCandidate.Size();
+		if (Distance <= KINDA_SMALL_NUMBER || Distance > MaxDistance)
+		{
+			continue;
+		}
+
+		const float AngleCos = FVector::DotProduct(CameraForward, ToCandidate / Distance);
+		if (AngleCos < BestAngleCos)
+		{
+			continue;
+		}
+
+		FCollisionQueryParams TraceParams(SCENE_QUERY_STAT(AimedRacerTargetTrace), false, MyPawn);
+		TraceParams.AddIgnoredActor(Candidate);
+
+		FHitResult Hit;
+		const bool bBlocked = GetWorld()->LineTraceSingleByChannel(
+			Hit, CameraLocation, Candidate->GetActorLocation(), ECC_Visibility, TraceParams);
+		if (bBlocked)
+		{
+			continue;
+		}
+
+		BestAngleCos = AngleCos;
+		BestTarget = Candidate;
+	}
+
+	return BestTarget;
 }
 
 UMO_AbilitySystemComponent* AMO_PlayerController::GetASC()

@@ -25,7 +25,15 @@ void UMO_ItemAbility::ActivateAbility(
 		return;
 	}
 
-	// No Blueprint implementation - fall back to the debug print.
+	OnItemActivated(Handle, ActorInfo, ActivationInfo);
+}
+
+void UMO_ItemAbility::OnItemActivated(
+	const FGameplayAbilitySpecHandle Handle,
+	const FGameplayAbilityActorInfo* ActorInfo,
+	const FGameplayAbilityActivationInfo ActivationInfo)
+{
+	// No Blueprint implementation and no C++ override - fall back to the debug print.
 	const FGameplayTag ItemTag = GetItemAbilityTag();
 	const FString TagString = ItemTag.IsValid() ? ItemTag.ToString() : ItemTagName.ToString();
 
